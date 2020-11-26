@@ -1,8 +1,27 @@
 {
   "name": "looking-glass-service",
+  "productName": "The Looking-Glass Service",
   "version": "1.0.0",
+  "description": "This service serves up content from across the web.",
   "main": "index.js",
   "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reptarsrage/looking-glass-service.git"
+  },
+  "author": {
+    "name": "Reptarsrage",
+    "email": "reptarsrage@gmail.com",
+    "url": "https://github.com/reptarsrage"
+  },
+  "bugs": {
+    "url": "https://github.com/reptarsrage/looking-glass-service/issues"
+  },
+  "keywords": [
+    "fastify",
+    "typescript"
+  ],
+  "homepage": "https://github.com/reptarsrage/looking-glass-service#readme",
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register src/index.ts | ./node_modules/.bin/pino-colada",
     "dev": "cross-env NODE_ENV=development nodemon -r tsconfig-paths/register src/index.ts | ./node_modules/.bin/pino-colada",
@@ -66,5 +85,9 @@
     "*.{md|json|yml}": [
       "prettier --write"
     ]
+  },
+  "devEngines": {
+    "node": ">=15.x",
+    "yarn": ">=1.x"
   }
 }
