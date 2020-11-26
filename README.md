@@ -1,5 +1,8 @@
 # Looking Glass Service
 
+![Github](https://github.com/Reptarsrage/looking-glass-service/workflows/CI/badge.svg)
+![Codecov](https://codecov.io/gh/Reptarsrage/looking-glass-service/branch/master/graph/badge.svg?token=Zs6t1fbmJ6)
+
 ## Description
 
 A service for use with the [looking glass client application](https://github.com/Reptarsrage/looking-glass). This service serves up content from across the web.
