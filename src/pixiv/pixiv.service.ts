@@ -100,7 +100,7 @@ export async function searchIllust(
   const params = {
     offset,
     sort: 'date_desc',
-    filter: filter,
+    filter: 'for_ios',
     include_translated_tag_results: 'true',
     word: query,
     search_target: 'partial_match_for_tags',
