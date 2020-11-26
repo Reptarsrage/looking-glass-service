@@ -27,7 +27,7 @@ export default class RedditController extends ModuleControllerBase {
       return pixivService.getGalleryPage(accessToken, req.hostname, galleryId, offset)
     }
 
-    if (query || filters.length > 0) {
+    if (query || filter) {
       return pixivService.searchIllust(accessToken, req.hostname, offset, query, filter)
     }
 
