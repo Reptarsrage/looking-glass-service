@@ -70,7 +70,7 @@ describe('GfycatHost', () => {
     it('resolves title', async () => {
       httpService.get.mockImplementation(() => Promise.resolve({ data: expectedGfycatData }))
       const response = await gfycatHost.resolve(expectedData, httpService, logger)
-      expect(response.title).toEqual(expectedData.title)
+      expect(response.name).toEqual(expectedData.title)
     })
 
     it('resolves id', async () => {

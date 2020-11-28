@@ -201,7 +201,7 @@ function parseContentPage(data: PixivIllustSearch, host: string, offset: number)
 function parseIllust(illust: PixivIllust, host: string): ItemResponse {
   return {
     id: illust.id.toString(),
-    title: illust.title,
+    name: illust.title,
     urls: [
       illust.metaSinglePage && illust.metaSinglePage.originalImageUrl,
       illust.imageUrls.original,

@@ -55,7 +55,7 @@ export default class GiphyHost implements Host {
 
       return {
         id: name,
-        title: title,
+        name: title,
         date,
         author: {
           id: `u/${author}`,

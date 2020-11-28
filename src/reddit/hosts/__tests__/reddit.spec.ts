@@ -110,7 +110,7 @@ describe('RedditHost', () => {
     describe('when given image post', () => {
       it('resolves image post title', async () => {
         const response = await redditHost.resolve(expectedImageData, null, logger)
-        expect(response.title).toEqual(expectedImageData.title)
+        expect(response.name).toEqual(expectedImageData.title)
       })
 
       it('resolves image post id', async () => {
@@ -199,7 +199,7 @@ describe('RedditHost', () => {
     describe('when given video post', () => {
       it('resolves video post title', async () => {
         const response = await redditHost.resolve(expectedVideoData, null, logger)
-        expect(response.title).toEqual(expectedVideoData.title)
+        expect(response.name).toEqual(expectedVideoData.title)
       })
 
       it('resolves video post id', async () => {
