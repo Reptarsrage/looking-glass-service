@@ -94,10 +94,7 @@ export async function getSearch(
   }
 
   // parse filters
-  if (filters.length > 0) {
-    const pathPart = filters.map((filter) => filter.replace(/(^\/|\/$)/g, '')).join('+')
-    path = `${pathPart}/${path}`
-  }
+  path = combineFiltersWithPath(filters, path)
 
   const url = `/${path}?${stringify(params)}`
   const { data } = await httpService.get<Listing>(url, axiosConfig)
@@ -133,10 +130,7 @@ export async function getListing(
   }
 
   // parse filters
-  if (filters.length > 0) {
-    const pathPart = filters.map((filter) => filter.replace(/(^\/|\/$)/g, '')).join('+')
-    path = `${pathPart}/${path}`
-  }
+  path = combineFiltersWithPath(filters, path)
 
   const url = `/${path}?${stringify(params)}`
   const { data } = await httpService.get<Listing>(url, axiosConfig)
@@ -318,4 +312,23 @@ async function getMultireddits(accessToken: string): Promise<FilterResponse[]> {
       description: multiLabel.data.subreddits.join(', '),
     }
   })
+}
+
+function combineFiltersWithPath(filters: string[], path: string) {
+  if (filters.length > 1) {
+    const pathPart = filters
+      .map((filter) =>
+        filter
+          .replace(/(^\/|\/$)/g, '')
+          .replace(/^u\//i, 'u_')
+          .replace(/^r\//i, '')
+      )
+      .join('+')
+    path = `r/${pathPart}/${path}`
+  } else if (filters.length === 1) {
+    const pathPart = filters[0].replace(/(^\/|\/$)/g, '')
+    path = `${pathPart}/${path}`
+  }
+
+  return path
 }
