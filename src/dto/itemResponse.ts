@@ -5,7 +5,7 @@ import SourceResponse from './sourceResponse'
 
 export default interface ItemResponse {
   id: string
-  title: string
+  name: string
   width: number
   height: number
   isVideo: boolean

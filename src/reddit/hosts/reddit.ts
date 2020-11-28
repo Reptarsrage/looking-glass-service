@@ -126,7 +126,7 @@ export default class RedditHost implements Host {
 
     const itemResponse: ItemResponse = {
       id: name,
-      title: title,
+      name: title,
       date,
       author: {
         id: `u/${author}`,

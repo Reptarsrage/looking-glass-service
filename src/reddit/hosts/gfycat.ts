@@ -32,7 +32,7 @@ export default class GfycatHost implements Host {
 
       return {
         id: name,
-        title: title,
+        name: title,
         date,
         author: {
           id: `u/${author}`,

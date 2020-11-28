@@ -101,7 +101,7 @@ describe('reddit.service', () => {
 
       const itemResponse: ItemResponse = {
         id: 'EXPECTED ID',
-        title: 'EXPECTED TITLE',
+        name: 'EXPECTED TITLE',
         width: 1,
         height: 2,
         isVideo: false,
@@ -127,7 +127,7 @@ describe('reddit.service', () => {
             id: 'EXPECTED ID',
             isGallery: false,
             isVideo: false,
-            title: 'EXPECTED TITLE',
+            name: 'EXPECTED TITLE',
             urls: [],
             width: 1,
           },

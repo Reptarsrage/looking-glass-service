@@ -139,7 +139,7 @@ describe('RedditController (e2e)', () => {
         items: [
           {
             id: 'EXPECTED ID',
-            title: 'EXPECTED TITLE',
+            name: 'EXPECTED TITLE',
             date: '1970-01-01T00:00:00.000Z',
             author: {
               id: 'u/EXPECTED AUTHOR',
