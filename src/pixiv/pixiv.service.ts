@@ -94,8 +94,8 @@ export async function searchIllust(
   accessToken: string,
   host: string,
   offset: number,
-  query?: string,
-  filter?: string
+  filters: string[],
+  query?: string
 ): Promise<PageResponse> {
   const params = {
     offset,
@@ -106,9 +106,9 @@ export async function searchIllust(
     search_target: 'partial_match_for_tags',
   }
 
-  if (filter) {
+  if (filters.length > 0) {
     params.search_target = 'exact_match_for_tags'
-    params.word = filter // for multiple filters join with space between
+    params.word = filters.join(' ') // for multiple filters join with space between
   }
 
   const { data } = await fetch('/v1/search/illust', accessToken, { params })

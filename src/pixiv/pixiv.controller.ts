@@ -18,17 +18,12 @@ export default class RedditController extends ModuleControllerBase {
     filters = filters || []
     offset = Math.max(0, offset || 0)
 
-    let filter
-    if (filters) {
-      filter = filters[0]
-    }
-
     if (galleryId) {
       return pixivService.getGalleryPage(accessToken, req.hostname, galleryId, offset)
     }
 
-    if (query || filter) {
-      return pixivService.searchIllust(accessToken, req.hostname, offset, query, filter)
+    if (query || filters.length > 0) {
+      return pixivService.searchIllust(accessToken, req.hostname, offset, filters, query)
     }
 
     return pixivService.getContentPage(accessToken, req.hostname, offset, sort)
