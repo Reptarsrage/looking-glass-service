@@ -1,5 +1,5 @@
-import AuthType from 'src/dto/authType'
-import Module from 'src/dto/moduleResponse'
+import AuthType from '../dto/authType'
+import Module from '../dto/moduleResponse'
 
 const definition: Module = {
   id: 'pixiv',
@@ -36,6 +36,8 @@ const definition: Module = {
       id: 'tag',
       name: 'Tags',
       description: 'Filter by tagged content',
+      supportsMultiple: true,
+      supportsSearch: true,
     },
   ],
 }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import config from 'src/config'
+import config from '../config'
 
 export default axios.create({
   baseURL: 'https://oauth.reddit.com',

@@ -4,7 +4,7 @@ import * as redditService from '../reddit.service'
 import axios from '../reddit.http'
 import hosts from '../hosts'
 import RedditHost from '../hosts/reddit'
-import ItemResponse from 'src/dto/itemResponse'
+import ItemResponse from '../../dto/itemResponse'
 
 jest.mock('pino')
 jest.mock('../hosts')

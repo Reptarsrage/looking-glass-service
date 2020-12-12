@@ -82,9 +82,14 @@ Build and deploy image as a docker container:
 
 ```bash
 docker build -t looking-glass-service:latest .
+
+# to run directly
+docker run -i -t -p 3001:3001 --env-file .env.prod looking-glass-service:latest
+
+# to run as a container
 docker stop lgs
 docker rm lgs
-docker create -i -t -p 3001:3001 --name lgs looking-glass-service
+docker create -i -t -p 3001:3001 --name lgs --env-file prod.env looking-glass-service
 docker start lgs
 docker update --restart unless-stopped lgs
 ```

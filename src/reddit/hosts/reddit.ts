@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios'
 
-import { Logger } from 'src/logger'
-import { PostData } from 'src/reddit/dto/redditResponse'
-import ItemResponse from 'src/dto/itemResponse'
-import { Host } from 'src/reddit/dto/redditHost'
-import MediaResponse from 'src/dto/mediaResponse'
+import { Logger } from '../../logger'
+import { PostData } from '../../reddit/dto/redditResponse'
+import ItemResponse from '../../dto/itemResponse'
+import { Host } from '../../reddit/dto/redditHost'
+import MediaResponse from '../../dto/mediaResponse'
 
 export default class RedditHost implements Host {
   domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i]
@@ -129,7 +129,7 @@ export default class RedditHost implements Host {
       name: title,
       date,
       author: {
-        id: `u/${author}`,
+        id: `user/${author}`,
         filterSectionId: 'user',
         name: author,
       },
@@ -151,7 +151,7 @@ export default class RedditHost implements Host {
           name: subreddit,
         },
         {
-          id: `u/${author}`,
+          id: `user/${author}`,
           filterSectionId: 'user',
           name: author,
         },

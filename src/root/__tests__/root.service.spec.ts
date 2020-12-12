@@ -1,7 +1,7 @@
-import { ModuleControllerBase } from 'src/base/base.controller'
-import AuthType from 'src/dto/authType'
-import ModuleResponse from 'src/dto/moduleResponse'
-import registeredControllers from 'src/base/registeredControllers'
+import { ModuleControllerBase } from '../../base/base.controller'
+import AuthType from '../../dto/authType'
+import ModuleResponse from '../../dto/moduleResponse'
+import registeredControllers from '../../base/registeredControllers'
 import rootService from '../root.service'
 
 class TestController extends ModuleControllerBase {}

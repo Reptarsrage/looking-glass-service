@@ -2,12 +2,12 @@ import { stringify } from 'querystring'
 import { AxiosRequestConfig } from 'axios'
 import camelize from 'camelize'
 
-import logger from 'src/logger'
-import config from 'src/config'
-import PageResponse from 'src/dto/pageResponse'
-import AuthResponse from 'src/dto/authResponse'
-import FilterResponse from 'src/dto/filterResponse'
-import ItemResponse from 'src/dto/itemResponse'
+import logger from '../logger'
+import config from '../config'
+import PageResponse from '../dto/pageResponse'
+import AuthResponse from '../dto/authResponse'
+import FilterResponse from '../dto/filterResponse'
+import ItemResponse from '../dto/itemResponse'
 import { Listing, Post } from './dto/redditResponse'
 import hosts from './hosts'
 import httpService from './reddit.http'
@@ -72,7 +72,7 @@ export async function getSearch(
   }
 
   let path = 'search'
-  const params = {
+  const params: any = {
     after,
     count,
     q: query,
@@ -93,8 +93,15 @@ export async function getSearch(
     params.sort = sortValue
   }
 
-  // parse filters
-  path = combineFiltersWithPath(filters, path)
+  // check if we need to access a user's submitted page
+  if (filters.some((filter) => filter.startsWith('user/'))) {
+    const user = filters.find((filter) => filter.startsWith('user/'))
+    path = `${user}/submitted/${path}`
+    params.type = 'links'
+  } else {
+    // parse filters
+    path = combineFiltersWithPath(filters, path)
+  }
 
   const url = `/${path}?${stringify(params)}`
   const { data } = await httpService.get<Listing>(url, axiosConfig)
@@ -116,7 +123,7 @@ export async function getListing(
   }
 
   // build params
-  const params = { count, after, t: undefined, raw_json: 1 }
+  const params: any = { count, after, t: undefined, raw_json: 1 }
 
   // parse sort
   let path = 'hot'
@@ -129,8 +136,15 @@ export async function getListing(
     path = sortValue
   }
 
-  // parse filters
-  path = combineFiltersWithPath(filters, path)
+  // check if we need to access a user's submitted page
+  if (filters.some((filter) => filter.startsWith('user/'))) {
+    const user = filters.find((filter) => filter.startsWith('user/'))
+    path = `${user}/submitted/${path}`
+    params.type = 'links'
+  } else {
+    // parse filters
+    path = combineFiltersWithPath(filters, path)
+  }
 
   const url = `/${path}?${stringify(params)}`
   const { data } = await httpService.get<Listing>(url, axiosConfig)

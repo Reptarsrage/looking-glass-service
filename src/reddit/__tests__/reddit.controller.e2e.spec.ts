@@ -4,7 +4,7 @@ import supertest from 'supertest'
 
 import createServer from '../../server'
 import axios from '../reddit.http'
-import PageRequest from 'src/dto/pageRequest'
+import PageRequest from '../../dto/pageRequest'
 
 jest.mock('pino')
 jest.mock('../../config')
@@ -142,7 +142,7 @@ describe('RedditController (e2e)', () => {
             name: 'EXPECTED TITLE',
             date: '1970-01-01T00:00:00.000Z',
             author: {
-              id: 'u/EXPECTED AUTHOR',
+              id: 'user/EXPECTED AUTHOR',
               filterSectionId: 'user',
               name: 'EXPECTED AUTHOR',
             },
@@ -169,7 +169,7 @@ describe('RedditController (e2e)', () => {
                 name: 'EXPECTED SUBREDDIT',
               },
               {
-                id: 'u/EXPECTED AUTHOR',
+                id: 'user/EXPECTED AUTHOR',
                 filterSectionId: 'user',
                 name: 'EXPECTED AUTHOR',
               },

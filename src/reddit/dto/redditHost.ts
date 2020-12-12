@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
-import { Logger } from 'src/logger'
+import { Logger } from '../../logger'
 import { PostData } from './redditResponse'
-import ItemResponse from 'src/dto/itemResponse'
+import ItemResponse from '../../dto/itemResponse'
 
 export type ResolveFunc = (post: PostData, httpService: AxiosInstance, logger: Logger) => Promise<ItemResponse>
 

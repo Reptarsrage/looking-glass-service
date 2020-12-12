@@ -1,9 +1,9 @@
 import { AxiosInstance } from 'axios'
 
-import { Logger } from 'src/logger'
-import { PostData } from 'src/reddit/dto/redditResponse'
-import ItemResponse from 'src/dto/itemResponse'
-import { Host } from 'src/reddit/dto/redditHost'
+import { Logger } from '../../logger'
+import { PostData } from '../../reddit/dto/redditResponse'
+import ItemResponse from '../../dto/itemResponse'
+import { Host } from '../../reddit/dto/redditHost'
 
 import GiphyHost from './giphy'
 import GfycatHost from './gfycat'

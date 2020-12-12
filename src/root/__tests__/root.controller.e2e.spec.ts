@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify'
 import supertest from 'supertest'
 
 import createServer from '../../server'
-import AuthType from 'src/dto/authType'
+import AuthType from '../../dto/authType'
 
 jest.mock('pino')
 jest.mock('src/config')

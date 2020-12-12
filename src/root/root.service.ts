@@ -1,5 +1,5 @@
-import registeredControllers from 'src/base/registeredControllers'
-import Module from 'src/dto/moduleResponse'
+import registeredControllers from '../base/registeredControllers'
+import Module from '../dto/moduleResponse'
 
 function getModules(baseUrl: string): Module[] {
   const modules = registeredControllers.getAll()
