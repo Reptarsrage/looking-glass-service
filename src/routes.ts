@@ -8,7 +8,7 @@ import logger from './logger'
 import PageRequest from './dto/pageRequest'
 
 // glob require all controllers
-glob.sync(path.resolve(__dirname, '**', '!(base|app).controller.ts')).map((file) => require(file))
+glob.sync(path.resolve(__dirname, '**', '!(base|app).controller.{js,ts}')).map((file) => require(file))
 
 /**
  * configures all routes

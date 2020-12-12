@@ -1,12 +1,12 @@
 import { stringify } from 'querystring'
 import { AxiosInstance } from 'axios'
 
-import { Logger } from 'src/logger'
-import config from 'src/config'
-import { GiphyResponse } from 'src/reddit/dto/giphyResponse'
-import { PostData } from 'src/reddit/dto/redditResponse'
-import ItemResponse from 'src/dto/itemResponse'
-import { Host } from 'src/reddit/dto/redditHost'
+import { Logger } from '../../logger'
+import config from '../../config'
+import { GiphyResponse } from '../../reddit/dto/giphyResponse'
+import { PostData } from '../../reddit/dto/redditResponse'
+import ItemResponse from '../../dto/itemResponse'
+import { Host } from '../../reddit/dto/redditHost'
 
 export default class GiphyHost implements Host {
   domains: RegExp[] = [/giphy\.com/i]
@@ -58,7 +58,7 @@ export default class GiphyHost implements Host {
         name: title,
         date,
         author: {
-          id: `u/${author}`,
+          id: `user/${author}`,
           filterSectionId: 'user',
           name: author,
         },
@@ -80,7 +80,7 @@ export default class GiphyHost implements Host {
             name: subreddit,
           },
           {
-            id: `u/${author}`,
+            id: `user/${author}`,
             filterSectionId: 'user',
             name: author,
           },

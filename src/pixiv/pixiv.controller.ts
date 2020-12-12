@@ -1,14 +1,14 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 
-import PageResponse from 'src/dto/pageResponse'
-import AuthResponse from 'src/dto/authResponse'
-import FilterResponse from 'src/dto/filterResponse'
-import PageRequest from 'src/dto/pageRequest'
-import { ModuleControllerBase } from 'src/base/base.controller'
-import { Controller } from 'src/base/registeredControllers'
+import PageResponse from '../dto/pageResponse'
+import AuthResponse from '../dto/authResponse'
+import FilterResponse from '../dto/filterResponse'
+import PageRequest from '../dto/pageRequest'
+import { ModuleControllerBase } from '../base/base.controller'
+import { Controller } from '../base/registeredControllers'
 import definition from './pixiv.definition'
 import * as pixivService from './pixiv.service'
-import LoginRequest from 'src/dto/loginRequest'
+import LoginRequest from '../dto/loginRequest'
 
 @Controller(definition)
 export default class RedditController extends ModuleControllerBase {

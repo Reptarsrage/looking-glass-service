@@ -126,7 +126,7 @@ describe('RedditHost', () => {
       it('resolves image post author', async () => {
         const response = await redditHost.resolve(expectedImageData, null, logger)
         expect(response.author).toEqual({
-          id: `u/${expectedImageData.author}`,
+          id: `user/${expectedImageData.author}`,
           filterSectionId: 'user',
           name: expectedImageData.author,
         })
@@ -170,7 +170,7 @@ describe('RedditHost', () => {
             name: expectedImageData.subreddit,
           },
           {
-            id: `u/${expectedImageData.author}`,
+            id: `user/${expectedImageData.author}`,
             filterSectionId: 'user',
             name: expectedImageData.author,
           },
@@ -215,7 +215,7 @@ describe('RedditHost', () => {
       it('resolves video post author', async () => {
         const response = await redditHost.resolve(expectedVideoData, null, logger)
         expect(response.author).toEqual({
-          id: `u/${expectedVideoData.author}`,
+          id: `user/${expectedVideoData.author}`,
           filterSectionId: 'user',
           name: expectedVideoData.author,
         })
@@ -259,7 +259,7 @@ describe('RedditHost', () => {
             name: expectedVideoData.subreddit,
           },
           {
-            id: `u/${expectedVideoData.author}`,
+            id: `user/${expectedVideoData.author}`,
             filterSectionId: 'user',
             name: expectedVideoData.author,
           },

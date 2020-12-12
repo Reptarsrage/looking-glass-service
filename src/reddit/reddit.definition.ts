@@ -1,10 +1,10 @@
 import { stringify } from 'querystring'
 import { v4 } from 'uuid'
 
-import config from 'src/config'
-import AuthType from 'src/dto/authType'
-import Sort from 'src/dto/sortResponse'
-import Module from 'src/dto/moduleResponse'
+import config from '../config'
+import AuthType from '../dto/authType'
+import Sort from '../dto/sortResponse'
+import Module from '../dto/moduleResponse'
 
 const oAuthParams: any = {
   client_id: config.get('REDDIT_CLIENT_ID'),
@@ -57,16 +57,22 @@ const definition: Module = {
       id: 'multireddit',
       name: 'Multireddits',
       description: 'Custom feeds',
+      supportsMultiple: false,
+      supportsSearch: true,
     },
     {
       id: 'subreddit',
       name: 'Subreddits',
       description: 'My communities',
+      supportsMultiple: true,
+      supportsSearch: true,
     },
     {
       id: 'user',
-      name: 'User',
-      description: 'Other feeds',
+      name: 'Submitted By',
+      description: 'See other posts submitted by this user',
+      supportsMultiple: false,
+      supportsSearch: false,
     },
   ],
   sort: [

@@ -89,7 +89,7 @@ describe('GfycatHost', () => {
       httpService.get.mockImplementation(() => Promise.resolve({ data: expectedGfycatData }))
       const response = await gfycatHost.resolve(expectedData, httpService, logger)
       expect(response.author).toEqual({
-        id: `u/${expectedData.author}`,
+        id: `user/${expectedData.author}`,
         filterSectionId: 'user',
         name: expectedData.author,
       })
@@ -127,7 +127,7 @@ describe('GfycatHost', () => {
           name: expectedData.subreddit,
         },
         {
-          id: `u/${expectedData.author}`,
+          id: `user/${expectedData.author}`,
           filterSectionId: 'user',
           name: expectedData.author,
         },

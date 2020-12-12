@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios'
 
-import { Logger } from 'src/logger'
-import { PostData } from 'src/reddit/dto/redditResponse'
-import { GfyResponse } from 'src/reddit/dto/gifycatResponse'
-import ItemResponse from 'src/dto/itemResponse'
-import { Host } from 'src/reddit/dto/redditHost'
+import { Logger } from '../../logger'
+import { PostData } from '../../reddit/dto/redditResponse'
+import { GfyResponse } from '../../reddit/dto/gifycatResponse'
+import ItemResponse from '../../dto/itemResponse'
+import { Host } from '../../reddit/dto/redditHost'
 
 export default class GfycatHost implements Host {
   domains: RegExp[] = [/gfycat\.com/i]
@@ -35,7 +35,7 @@ export default class GfycatHost implements Host {
         name: title,
         date,
         author: {
-          id: `u/${author}`,
+          id: `user/${author}`,
           filterSectionId: 'user',
           name: author,
         },
@@ -57,7 +57,7 @@ export default class GfycatHost implements Host {
             name: subreddit,
           },
           {
-            id: `u/${author}`,
+            id: `user/${author}`,
             filterSectionId: 'user',
             name: author,
           },

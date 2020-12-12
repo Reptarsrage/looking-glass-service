@@ -1,5 +1,6 @@
 import { ModuleControllerBase } from './base.controller'
 import Definition from '../dto/moduleResponse'
+import logger from '../logger'
 
 export type RegisteredController = {
   controller: ModuleControllerBase

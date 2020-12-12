@@ -1,12 +1,12 @@
 import { extname } from 'path'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 
-import { Logger } from 'src/logger'
-import config from 'src/config'
-import { ImgurImageResponse } from 'src/reddit/dto/imgurImageResponse'
-import { PostData } from 'src/reddit/dto/redditResponse'
-import ItemResponse from 'src/dto/itemResponse'
-import { Host } from 'src/reddit/dto/redditHost'
+import { Logger } from '../../logger'
+import config from '../../config'
+import { ImgurImageResponse } from '../../reddit/dto/imgurImageResponse'
+import { PostData } from '../../reddit/dto/redditResponse'
+import ItemResponse from '../../dto/itemResponse'
+import { Host } from '../../reddit/dto/redditHost'
 
 export default class ImgurHost implements Host {
   domains: RegExp[] = [/imgur\.com/i]
@@ -34,14 +34,14 @@ export default class ImgurHost implements Host {
     // TODO: Support Imgur albums
     // see: https://apidocs.imgur.com/#5369b915-ad8b-47b1-b44b-8e2561e41cee
     if (type === 'a') {
-      logger.warn('Imgur albums not currently supported')
+      logger.warn(`Imgur albums not currently supported: ${url}`)
       return null
     }
 
     // TODO: Support Imgur galleries
     // see: https://apidocs.imgur.com/#eff60e84-5781-4c12-926a-208dc4c7cc94
     if (type === 'gallery') {
-      logger.warn('Imgur galleries not currently supported')
+      logger.warn(`Imgur galleries not currently supported: ${url}`)
       return null
     }
 
@@ -69,7 +69,7 @@ export default class ImgurHost implements Host {
         name: title,
         date,
         author: {
-          id: `u/${author}`,
+          id: `user/${author}`,
           filterSectionId: 'user',
           name: author,
         },
@@ -91,7 +91,7 @@ export default class ImgurHost implements Host {
             name: subreddit,
           },
           {
-            id: `u/${author}`,
+            id: `user/${author}`,
             filterSectionId: 'user',
             name: author,
           },
