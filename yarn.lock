@@ -2219,9 +2219,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-json-stringify@^2.2.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.4.1.tgz#f16f99ef80518699d347924c846060f0360a95ea"
-  integrity sha512-Nzqv9yf0JDIhWwA6GcSPKMPhHJYIexOLEw7psxZhPjnYlLuJ/SGEAihVC1whQu5bKJWE2VMmoGTcspv/6AGLVQ==
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.4.2.tgz#f2a5df3d335979a22335954bfacc7d32437ecf68"
+  integrity sha512-hXNC8Hj5ZYf0PRt67JyLwrw72XOIUSOj8IYXk8w8kotBox02L08Dvz6c8IMpCUXof1H+dLlBz1aszGqP9xmrBw==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
@@ -2430,9 +2430,9 @@ form-data@^2.5.0:
     mime-types "^2.1.12"
 
 form-data@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.0.tgz#31b7e39c85f1355b7139ee0c647cf0de7f83c682"
-  integrity sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"
+  integrity sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
