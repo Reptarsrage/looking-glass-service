@@ -1961,9 +1961,9 @@ eslint-plugin-prettier@3.3.1:
     prettier-linter-helpers "^1.0.0"
 
 eslint-rule-docs@^1.1.5:
-  version "1.1.221"
-  resolved "https://registry.yarnpkg.com/eslint-rule-docs/-/eslint-rule-docs-1.1.221.tgz#45e3023538a79879e652e163a05c04ae6f6c34b4"
-  integrity sha512-9vxNL90AmYii4Wy99MLQ3KfGyyfDixLurp9NlxB6tF3tqatL8YuAvjhm6vxRXKEEeMUh5Jc7lT49kiOWY/FhSQ==
+  version "1.1.222"
+  resolved "https://registry.yarnpkg.com/eslint-rule-docs/-/eslint-rule-docs-1.1.222.tgz#3e4ff8c33c973ec1980f26f9efdd6f01d8ee49d3"
+  integrity sha512-lHzjFMdlpqaa38Zf6oeW/A+EX91ogcaUqolNwS2EOT3BhPqxPeYCdeH3H2+bQO1U7mzu01vsVNVr3L1cGyDrKA==
 
 eslint-scope@^5.0.0, eslint-scope@^5.1.1:
   version "5.1.1"
@@ -3809,9 +3809,9 @@ lodash.sortby@^4.7.0:
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
 lodash@4.x, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20:
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
-  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-symbols@^4.0.0:
   version "4.0.0"
