@@ -17,9 +17,9 @@
     "@babel/highlight" "^7.12.13"
 
 "@babel/compat-data@^7.13.0":
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.13.0.tgz#7889eb7ee6518e2afa5d312b15fd7fd1fe9f3744"
-  integrity sha512-mKgFbYQ+23pjwNGBNPNWrBfa3g/EcmrPnwQpjWoNxq9xYf+M8wcLhMlz/wkWimLjzNzGnl3D+C2186gMzk0VuA==
+  version "7.13.6"
+  resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.13.6.tgz#11972d07db4c2317afdbf41d6feb3a730301ef4e"
+  integrity sha512-VhgqKOWYVm7lQXlvbJnWOzwfAQATd2nV52koT0HZ/LdDH0m4DUDwkKYsH+IwpXb+bKPyBJzawA4I6nBKqZcpQw==
 
 "@babel/core@^7.1.0", "@babel/core@^7.7.5":
   version "7.13.1"
@@ -1900,9 +1900,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.649:
-  version "1.3.672"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.672.tgz#3a6e335016dab4bc584d5292adc4f98f54541f6a"
-  integrity sha512-gFQe7HBb0lbOMqK2GAS5/1F+B0IMdYiAgB9OT/w1F4M7lgJK2aNOMNOM622aEax+nS1cTMytkiT0uMOkbtFmHw==
+  version "1.3.673"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.673.tgz#b4f81c930b388f962b7eba20d0483299aaa40913"
+  integrity sha512-ms+QR2ckfrrpEAjXweLx6kNCbpAl66DcW//3BZD4BV5KhUgr0RZRce1ON/9J3QyA3JO28nzgb5Xv8DnPr05ILg==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -3834,9 +3834,9 @@ listenercount@~1.0.1:
   integrity sha1-hMinKrWcRyUyFIDJdeZQg0LnCTc=
 
 listr2@^3.2.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/listr2/-/listr2-3.3.2.tgz#e9dc899ba5997f365d25349d62b586f01257be5b"
-  integrity sha512-mGwDWg5Zq2m96Ern+RFTgzh6otSfLtHqhWKhoNvCErr46komaWAs1G8K6Th4VENps3cKySKGJXL1yAiCjmt5IQ==
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/listr2/-/listr2-3.3.3.tgz#af44f6a4cb76d17d293aa5cb88ea84b67bc6144e"
+  integrity sha512-CeQrTeot/OQTrd2loXEBMfwlOjlPeHu/9alA8UyEoiEyncpj/mv2zRLgx32JzO62wbJIBSKgGM2L23XeOwrRlg==
   dependencies:
     chalk "^4.1.0"
     cli-truncate "^2.1.0"
@@ -4128,9 +4128,9 @@ node-notifier@^8.0.0:
     which "^2.0.2"
 
 node-releases@^1.1.70:
-  version "1.1.70"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.70.tgz#66e0ed0273aa65666d7fe78febe7634875426a08"
-  integrity sha512-Slf2s69+2/uAD79pVVQo8uSiC34+g8GWY8UH2Qtqv34ZfhYrxpYpfzs9Js9d6O0mbDmALuxaTlplnBTnSELcrw==
+  version "1.1.71"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.71.tgz#cb1334b179896b1c89ecfdd4b725fb7bbdfc7dbb"
+  integrity sha512-zR6HoT6LrLCRBwukmrVbHv0EpEQjksO6GmFcZQQuCAy139BEsoVKPYnf3jongYW83fAa1torLGYwxxky/p28sg==
 
 nodemon@2.0.7:
   version "2.0.7"
