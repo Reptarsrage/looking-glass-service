@@ -44,9 +44,9 @@
     source-map "^0.5.0"
 
 "@babel/generator@^7.13.0":
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.13.0.tgz#bd00d4394ca22f220390c56a0b5b85568ec1ec0c"
-  integrity sha512-zBZfgvBB/ywjx0Rgc2+BwoH/3H+lDtlgD4hBOpEv5LxRnYsm/753iRuLepqnYlynpjC3AdQxtxsoeHJoEEwOAw==
+  version "7.13.9"
+  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.13.9.tgz#3a7aa96f9efb8e2be42d38d80e2ceb4c64d8de39"
+  integrity sha512-mHOOmY0Axl/JCTkxTU6Lf5sWOg/v8nUa+Xkt4zMTftX0wqmb6Sh7J8gvcehBw7q0AhrhAR+FDacKjCZ2X8K+Sw==
   dependencies:
     "@babel/types" "^7.13.0"
     jsesc "^2.5.1"
@@ -172,9 +172,9 @@
     js-tokens "^4.0.0"
 
 "@babel/parser@^7.1.0", "@babel/parser@^7.12.13", "@babel/parser@^7.13.0", "@babel/parser@^7.13.4":
-  version "7.13.4"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.13.4.tgz#340211b0da94a351a6f10e63671fa727333d13ab"
-  integrity sha512-uvoOulWHhI+0+1f9L4BoozY7U5cIkZ9PgJqvb041d6vypgUmtVPG4vmGm4pSggjl8BELzvHyUeJSUyEMY6b+qA==
+  version "7.13.9"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.13.9.tgz#ca34cb95e1c2dd126863a84465ae8ef66114be99"
+  integrity sha512-nEUfRiARCcaVo3ny3ZQjURjHQZUo/JkEw7rLlSZy/psWGnvwXFtPcr6jb7Yb41DVW5LTe6KRq9LGleRNsg1Frw==
 
 "@babel/plugin-syntax-async-generators@^7.8.4":
   version "7.8.4"
@@ -1355,9 +1355,9 @@ camelize@^1.0.0:
   integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
 
 caniuse-lite@^1.0.30001181:
-  version "1.0.30001192"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001192.tgz#b848ebc0ab230cf313d194a4775a30155d50ae40"
-  integrity sha512-63OrUnwJj5T1rUmoyqYTdRWBqFFxZFlyZnRRjDR8NSUQFB6A+j/uBORU/SyJ5WzDLg4SPiZH40hQCBNdZ/jmAw==
+  version "1.0.30001194"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001194.tgz#3d16ff3d734a5a7d9818402c28b1f636c5be5bed"
+  integrity sha512-iDUOH+oFeBYk5XawYsPtsx/8fFpndAPUQJC7gBTfxHM8xw5nOZv7ceAD4frS1MKCLUac7QL5wdAJiFQlDRjXlA==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -1899,9 +1899,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.649:
-  version "1.3.675"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.675.tgz#7ad29f98d7b48da581554eb28bb9a71fd5fd4956"
-  integrity sha512-GEQw+6dNWjueXGkGfjgm7dAMtXfEqrfDG3uWcZdeaD4cZ3dKYdPRQVruVXQRXtPLtOr5GNVVlNLRMChOZ611pQ==
+  version "1.3.677"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.677.tgz#b5d586b0d1976c97cc7e95262677ac5944199513"
+  integrity sha512-Tcmk+oKQgpjcM+KYanlkd76ZtpzalkpUULnlJDP6vjHtR7UU564IM9Qv5DxqHZNBQjzXm6mkn7Y8bw2OoE3FmQ==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -2301,9 +2301,9 @@ fast-safe-stringify@^2.0.7:
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
 fastify-compress@^3.4.0:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/fastify-compress/-/fastify-compress-3.4.1.tgz#12a9434366ee42a6f392a09225e37a19ea79ebca"
-  integrity sha512-9zZcdVIJyjNVjhLd4aXK15ObR8RiuraRe2rC5ZFI2SIVI0iDNYRx6vYK/RAtR/j9lRK0beqUhMzdePzlBRtorQ==
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/fastify-compress/-/fastify-compress-3.4.2.tgz#a2d1fed617114e9580ea8e9328f5a751241900b5"
+  integrity sha512-Vtia4OZlS6ZrFS3tMmaiOvPv3wKSAgvxz0ihuubxY31fAt67gmWosivyWh3MADgCu7pdziEODRwyZeNXHS41/Q==
   dependencies:
     encoding-negotiator "^2.0.1"
     fastify-plugin "^3.0.0"
