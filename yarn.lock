@@ -2030,9 +2030,9 @@ eslint-plugin-prettier@3.3.1:
     prettier-linter-helpers "^1.0.0"
 
 eslint-rule-docs@^1.1.5:
-  version "1.1.223"
-  resolved "https://registry.yarnpkg.com/eslint-rule-docs/-/eslint-rule-docs-1.1.223.tgz#0e69fb7dd38b0622670e7b9e9ef8819fd656ef73"
-  integrity sha512-6HU1vH6b3QBI2RiFyNE1cQWr2pQ+op1zqZRsVXBZsLngF5ePBGDbkwFtr1Ye4Yq1DBKc499TMEkIzx25xVetuw==
+  version "1.1.224"
+  resolved "https://registry.yarnpkg.com/eslint-rule-docs/-/eslint-rule-docs-1.1.224.tgz#4a5ef9c37e0b5844c09b0f6167edfca59e0526db"
+  integrity sha512-Rq1Hn4dODLewC8HbCGlQL69VW8ifqldCHHdfhKmU+h+C+Q2wR7WeYcVgz/Wh7E5KUWlmUUKWkBfyYq0Ltrtk3g==
 
 eslint-scope@^5.0.0, eslint-scope@^5.1.1:
   version "5.1.1"
@@ -2295,9 +2295,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-json-stringify@^2.5.2:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.5.3.tgz#0dd45986ed9e406915676123c82868d9deba9f11"
-  integrity sha512-wOE0YeqnhwOPqaZNvRxsgnq8Puc2vAQIlxSlcpRUInm0yf4+H/YqQ8ijBmzkUg384p0JBzjR9XBNkU5jLWSCwQ==
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.5.4.tgz#af0a42926e0ccaee391775bff20711c3e09f0feb"
+  integrity sha512-fu74X0fRzQqADX6LFJ+5lSal1+j/QmX4oWrDnrfVAXV4qT6PwyymZmhGa/1SWgouOmf0tBJzZrHZPLymO00Lxg==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
@@ -4038,12 +4038,12 @@ micromatch@^3.1.4:
     to-regex "^3.0.2"
 
 micromatch@^4.0.2:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.3.tgz#fdad8352bf0cbeb89b391b5d244bc22ff3dd4ec8"
-  integrity sha512-ueuSaP4i67F/FAUac9zzZ0Dz/5KeKDkITYIS/k4fps+9qeh1SkeH6gbljcqz97mNBOsaWZ+iv2UobMKK/yD+aw==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.4.tgz#896d519dfe9db25fce94ceb7a500919bf881ebf9"
+  integrity sha512-pRmzw/XUcwXGpD9aI9q/0XOwLNygjETJ8y0ao0wdqprrzDa4YnxLcz7fQRZr8voh8V10kGhABbNcHVk5wHgWwg==
   dependencies:
     braces "^3.0.1"
-    picomatch "^2.2.1"
+    picomatch "^2.2.3"
 
 mime-db@1.47.0, mime-db@^1.45.0:
   version "1.47.0"
@@ -4498,10 +4498,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-picomatch@^2.0.4, picomatch@^2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
-  integrity sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
+picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.2.3.tgz#465547f359ccc206d3c48e46a1bcb89bf7ee619d"
+  integrity sha512-KpELjfwcCDUb9PeigTs2mBJzXUPzAuP2oPcA989He8Rte0+YUAjw1JVedDhuTKPkHjSYzMN3npC9luThGYEKdg==
 
 pino-colada@2.1.0:
   version "2.1.0"
