@@ -2299,9 +2299,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-json-stringify@^2.5.2:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.7.0.tgz#d7793a1e01e2ed7088bd7136de3b817d6ddb2f32"
-  integrity sha512-Faer5r+425rSghwMqIxAAL+5nAcUQBwBsMBXaGZJ2lmbdc/YlTl1GfT9nrbW2kmLYyYn8AXWW8PfEC5496Bq9Q==
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.7.1.tgz#60b46813f771c4554ac213c1d0cfb62e48c14a5d"
+  integrity sha512-DInuFDVNbwjZmcZke80IB1GlMONCAc15QqRhLQCOrAyJr1tFmQsgpXCJS2dtwxLWL1PtTtOLK4itj24wEqIMWg==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
