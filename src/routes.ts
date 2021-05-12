@@ -90,7 +90,8 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/proxy`, (req, res) => {
       try {
-        const accessToken = req.headers['access-token'] as string
+        let accessToken = req.headers['access-token'] as string
+        accessToken = accessToken || req.query['accessToken']
         const uri = req.query['uri'] as string
         controller.getProxy(uri, res, accessToken, req)
       } catch (error) {
