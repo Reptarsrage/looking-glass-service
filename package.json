@@ -38,6 +38,7 @@
     "@types/node": "14.14.44",
     "@types/pino": "6.3.8",
     "@types/supertest": "2.0.11",
+    "@types/xml2js": "^0.4.8",
     "@typescript-eslint/eslint-plugin": "4.23.0",
     "@typescript-eslint/parser": "4.23.0",
     "cross-env": "7.0.3",
@@ -73,7 +74,8 @@
     "js-sha256": "^0.9.0",
     "jspack": "^0.0.4",
     "moment": "^2.29.1",
-    "pino": "^6.8.0"
+    "pino": "^6.8.0",
+    "xml2js": "^0.4.23"
   },
   "husky": {
     "hooks": {
