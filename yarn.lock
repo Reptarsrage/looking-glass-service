@@ -1928,9 +1928,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.723:
-  version "1.3.730"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.730.tgz#6e1fad8f250827f5524672e572f823b34a6417e1"
-  integrity sha512-1Tr3h09wXhmqXnvDyrRe6MFgTeU0ZXy3+rMJWTrOHh/HNesWwBBrKnMxRJWZ86dzs8qQdw2c7ZE1/qeGHygImA==
+  version "1.3.731"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.731.tgz#9f17f7e16f798eaddb21409d80aa755b5b5053dc"
+  integrity sha512-dn1Nyd0DuFa3xhqZJr6/L9phyk+YXJpvrz6Vcu6mFxFqr5TQ9r/F3yvOYFUrEwY4Tbb1YBjN19TDKnSVCQvalA==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -2321,9 +2321,9 @@ fast-json-stable-stringify@2.x, fast-json-stable-stringify@^2.0.0:
   integrity sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==
 
 fast-json-stringify@^2.5.2:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.7.3.tgz#02145e3a821d6ce1d8a8bfb919d5cbe96cdcd693"
-  integrity sha512-QNIh4CQ5S3D5vO7Bv88Si8TFQGZgxv15h2n/79TESr4lhZ8ptq3R9SCTteslr+pwrZQlvrAFgcXgFuUIgS3UQA==
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/fast-json-stringify/-/fast-json-stringify-2.7.4.tgz#80a828d3739dd9f038ef010b75558cd494f93745"
+  integrity sha512-fc2bvaF7C6fa+Q/8D9SbjJC70F/PueIR9gaZPr/85WLjJjpUbwszm7vvK7fu+c/W6sCCeeEOMs+ry8/LV6xBPg==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
@@ -2346,9 +2346,9 @@ fast-safe-stringify@^2.0.7:
   integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
 fastify-compress@^3.4.0:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/fastify-compress/-/fastify-compress-3.4.2.tgz#a2d1fed617114e9580ea8e9328f5a751241900b5"
-  integrity sha512-Vtia4OZlS6ZrFS3tMmaiOvPv3wKSAgvxz0ihuubxY31fAt67gmWosivyWh3MADgCu7pdziEODRwyZeNXHS41/Q==
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/fastify-compress/-/fastify-compress-3.5.0.tgz#eef0ff7d7a1bef9f81ad9ea2546fbe6d4166f245"
+  integrity sha512-m8LgANhJOT+CIrasd2dTOcJ/vmpQVQD3DJ6qx9rOqL/axtvAetKnX0tXEngr/1NATEq9hScHhbqKkz065AYFBg==
   dependencies:
     encoding-negotiator "^2.0.1"
     fastify-plugin "^3.0.0"
@@ -2392,9 +2392,9 @@ fastify-plugin@^3.0.0:
   integrity sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==
 
 fastify-static@^4.0.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-4.2.0.tgz#5c9dff495e5b7efe5fdf21d05ba483f1496958fa"
-  integrity sha512-Fjc01GeHdCT3LFaROy3QCKJii8K4K8IuGOSivXV53kWpu2xBLVwn8TDWnFSdCF6JaeMC6ZPHpD2OiC3KFyNlIg==
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-4.2.1.tgz#c59e057da4f3c32fcebdd309850e4d0aac2918e8"
+  integrity sha512-cxukKJVenzDFnoFGZg2i2qbbqCJgJvq7dypvY/XrfrU7+9Ke1k2QqM3gfBp86RZW0oOW0QIU80aCCfNFTzixJQ==
   dependencies:
     content-disposition "^0.5.3"
     encoding-negotiator "^2.0.1"
