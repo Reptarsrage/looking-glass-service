@@ -1,10 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import { AxiosInstance } from 'axios'
+import qs from 'qs'
 import supertest from 'supertest'
 
 import createServer from '../../server'
 import axios from '../reddit.http'
-import PageRequest from '../../dto/pageRequest'
+import PageRequest from 'src/dto/pageRequest'
 
 jest.mock('pino')
 jest.mock('../../config')
@@ -84,9 +85,8 @@ describe('RedditController (e2e)', () => {
       mockAxios.get.mockImplementation(() => Promise.resolve({ data: redditListing }))
 
       supertest(app.server)
-        .post('/reddit')
+        .get(`/reddit?${qs.stringify(request)}`)
         .set('access-token', 'ACCESS TOKEN')
-        .send(request)
         .expect(200)
         .expect('Content-Type', /json/)
         .end(done)
@@ -193,9 +193,8 @@ describe('RedditController (e2e)', () => {
       mockAxios.get.mockImplementation(() => Promise.resolve({ data: redditListing }))
 
       supertest(app.server)
-        .post('/reddit')
+        .get(`/reddit?${qs.stringify(request)}`)
         .set('access-token', 'ACCESS TOKEN')
-        .send(request)
         .expect((res) => {
           expect(res.body).toEqual(expected)
         })

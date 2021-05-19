@@ -30,10 +30,24 @@ function configure(app: FastifyInstance): void {
   registeredControllers.getAll().forEach((moduleId) => {
     const { controller } = registeredControllers.get(moduleId)
 
-    app.post(`/${moduleId}`, async (req, res) => {
+    app.get(`/${moduleId}`, async (req, res) => {
       try {
         const accessToken = req.headers['access-token'] as string
-        const response = await controller.getPage(req, accessToken, req.body as PageRequest)
+        let filters = req.query['filters'] as string | string[]
+        if (typeof filters === 'string' || filters instanceof String) {
+          filters = [filters as string]
+        }
+
+        const request: PageRequest = {
+          galleryId: req.query['galleryId'] as string,
+          query: req.query['query'] as string,
+          offset: parseInt((req.query['offset'] as string) || '0', 10),
+          after: req.query['after'] as string,
+          sort: req.query['sort'] as string,
+          filters,
+        }
+
+        const response = await controller.getPage(req, accessToken, request)
         return response
       } catch (error) {
         logger.error(error, `Error executing '/${moduleId}'`)
