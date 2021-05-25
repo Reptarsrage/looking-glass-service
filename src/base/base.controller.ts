@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FastifyRequest, FastifyReply } from 'fastify'
-import got, { HTTPError } from 'got'
 
 import PageResponse from '../dto/pageResponse'
 import AuthResponse from '../dto/authResponse'
@@ -8,7 +7,7 @@ import FilterResponse from '../dto/filterResponse'
 import LoginRequest from '../dto/loginRequest'
 import PageRequest from '../dto/pageRequest'
 import AuthorizeRequest from '../dto/authorizeRequest'
-import logger from '../logger'
+import stream from './stream'
 
 export class NotImplementedException extends Error {
   name = 'NotImplementedError'
@@ -47,30 +46,6 @@ export abstract class ModuleControllerBase {
    * @param req  - Request
    */
   protected proxyHelper(url: string, options: any, req: FastifyRequest, res: FastifyReply): void {
-    const {
-      referer,
-      host,
-      'sec-fetch-site': _,
-      'sec-fetch-mode': __,
-      'sec-fetch-dest': ___,
-      ...reqHeaders
-    } = req.headers
-
-    options = {
-      ...options,
-      headers: {
-        ...reqHeaders,
-        ...options.headers,
-      },
-    }
-
-    got
-      .stream(url, options)
-      .on('error', (e: HTTPError) => {
-        const statusCode = (e.response && e.response.statusCode) || 500
-        logger.warn(`Proxy Http Error: ${statusCode}: ${e.message}`)
-        res.status(statusCode).send()
-      })
-      .pipe(res.raw)
+    stream(url, (options || {}).headers, req, res)
   }
 }
