@@ -67,8 +67,9 @@ export abstract class ModuleControllerBase {
     got
       .stream(url, options)
       .on('error', (e: HTTPError) => {
-        logger.warn(`Proxy Http Error: ${e.response.statusCode}: ${e.message}`)
-        res.status(e.response.statusCode).send()
+        const statusCode = (e.response && e.response.statusCode) || 500
+        logger.warn(`Proxy Http Error: ${statusCode}: ${e.message}`)
+        res.status(statusCode).send()
       })
       .pipe(res.raw)
   }
