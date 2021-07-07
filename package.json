@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/glob": "7.1.4",
-    "@types/got": "9.6.11",
+    "@types/got": "9.6.12",
     "@types/jest": "26.0.23",
     "@types/node": "14.17.4",
     "@types/pino": "6.3.8",
