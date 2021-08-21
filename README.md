@@ -1,7 +1,7 @@
 # Looking Glass Service
 
 ![Github](https://github.com/Reptarsrage/looking-glass-service/workflows/CI/badge.svg)
-![Codecov](https://codecov.io/gh/Reptarsrage/looking-glass-service/branch/master/graph/badge.svg?token=Zs6t1fbmJ6)
+![Codecov](https://codecov.io/gh/Reptarsrage/looking-glass-service/branch/main/graph/badge.svg?token=Zs6t1fbmJ6)
 
 ## Description
 
