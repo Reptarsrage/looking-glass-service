@@ -1,14 +1,13 @@
 import axios from 'axios'
 
 const baseURL = 'https://app-api.pixiv.net/'
-const appVersion = '7.9.7'
-const userAgent = `PixiviOSApp/${appVersion} (iOS 14.1)`
-
+const appVersion = '5.0.234'
+const userAgent = `PixivAndroidApp/${appVersion} (Android 11; Pixel 5)`
 const httpService = axios.create({
   baseURL,
   headers: {
-    'App-OS': 'ios',
-    'App-OS-Version': '7.9.5',
+    'App-OS': 'Android',
+    'App-OS-Version': '11',
     'Accept-Language': 'en-us',
     'App-Version': appVersion,
     'User-Agent': userAgent,

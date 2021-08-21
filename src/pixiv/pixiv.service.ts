@@ -1,83 +1,46 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import camelize from 'camelize'
-import * as crypto from 'crypto'
 import decamelize from 'decamelize-keys'
-import moment from 'moment'
 import { stringify } from 'querystring'
 
-import config from '../config'
 import PageResponse from '../dto/pageResponse'
 import AuthResponse from '../dto/authResponse'
 import FilterResponse from '../dto/filterResponse'
 import ItemResponse from '../dto/itemResponse'
 import MediaResponse from '../dto/mediaResponse'
+import config from '../config'
 import httpService from './pixiv.http'
 import { PixivIllust, PixivIllustDetail, PixivIllustSearch } from './dto/illustSearchResponse'
+import challenge from './pixiv.verifier'
 
 export async function refresh(refreshToken: string): Promise<AuthResponse> {
-  const time = moment().format('YYYY-MM-DDTHH:mm:ss+00:00')
-  const hashSecret = config.get('PIXIV_HASH_SECRET')
-
-  const timeHash = crypto
-    .createHash('md5')
-    .update(Buffer.from(`${time}${hashSecret}`, 'utf8'))
-    .digest('hex')
-
-  const requestConfig: AxiosRequestConfig = {
-    headers: {
-      'X-Client-Time': time,
-      'X-Client-Hash': timeHash,
-    },
-  }
-
+  const authTokenUrl = 'https://oauth.secure.pixiv.net/auth/token'
   const body: any = {
     clientId: config.get('PIXIV_CLIENT_ID'),
     clientSecret: config.get('PIXIV_CLIENT_SECRET'),
-    get_secure_url: '1',
-    grant_type: 'refresh_token',
-    refresh_token: refreshToken,
+    grantType: 'refresh_token',
+    includePolicy: 'true',
+    refreshToken,
   }
 
-  const { data } = await httpService.post(
-    'https://oauth.secure.pixiv.net/auth/token',
-    stringify(decamelize(body)),
-    requestConfig
-  )
-
+  const { data } = await httpService.post(authTokenUrl, stringify(decamelize(body)))
   return camelize(data)
 }
 
-export async function login(username: string, password: string): Promise<AuthResponse> {
-  const time = moment().format('YYYY-MM-DDTHH:mm:ss+00:00')
-  const hashSecret = config.get('PIXIV_HASH_SECRET')
-
-  const timeHash = crypto
-    .createHash('md5')
-    .update(Buffer.from(`${time}${hashSecret}`, 'utf8'))
-    .digest('hex')
-
-  const requestConfig: AxiosRequestConfig = {
-    headers: {
-      'X-Client-Time': time,
-      'X-Client-Hash': timeHash,
-    },
-  }
-
+export async function authorize(code: string): Promise<AuthResponse> {
+  const redirectUri = 'https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback'
+  const authTokenUrl = 'https://oauth.secure.pixiv.net/auth/token'
   const body: any = {
     clientId: config.get('PIXIV_CLIENT_ID'),
     clientSecret: config.get('PIXIV_CLIENT_SECRET'),
-    get_secure_url: '1',
-    grant_type: 'password',
-    username: username,
-    password: password,
+    code,
+    codeVerifier: challenge.codeVerifier,
+    grantType: 'authorization_code',
+    includePolicy: 'true',
+    redirectUri: redirectUri,
   }
 
-  const { data } = await httpService.post(
-    'https://oauth.secure.pixiv.net/auth/token',
-    stringify(decamelize(body)),
-    requestConfig
-  )
-
+  const { data } = await httpService.post(authTokenUrl, stringify(decamelize(body)))
   return camelize(data)
 }
 

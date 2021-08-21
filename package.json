@@ -81,11 +81,11 @@
     "xml2js": "^0.4.23"
   },
   "lint-staged": {
-    "*.{ts|js}": [
+    "*.{ts,js}": [
       "eslint --cache --format=pretty",
       "prettier --write"
     ],
-    "*.{md|json|yml}": [
+    "*.{md,json,yml}": [
       "prettier --write"
     ]
   },

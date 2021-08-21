@@ -8,7 +8,7 @@ import { ModuleControllerBase } from '../base/base.controller'
 import { Controller } from '../base/registeredControllers'
 import definition from './pixiv.definition'
 import * as pixivService from './pixiv.service'
-import LoginRequest from '../dto/loginRequest'
+import AuthorizeRequest from '../dto/AuthorizeRequest'
 
 @Controller(definition)
 export default class RedditController extends ModuleControllerBase {
@@ -29,8 +29,8 @@ export default class RedditController extends ModuleControllerBase {
     return pixivService.getContentPage(accessToken, req.hostname, offset, sort)
   }
 
-  async getLogin(request: LoginRequest): Promise<AuthResponse> {
-    return pixivService.login(request.username, request.password)
+  async getAuthorize(request: AuthorizeRequest): Promise<AuthResponse> {
+    return pixivService.authorize(request.code)
   }
 
   async getRefresh(refreshToken: string): Promise<AuthResponse> {
