@@ -8,7 +8,7 @@ import { ModuleControllerBase } from '../base/base.controller'
 import { Controller } from '../base/registeredControllers'
 import definition from './pixiv.definition'
 import * as pixivService from './pixiv.service'
-import AuthorizeRequest from '../dto/AuthorizeRequest'
+import AuthorizeRequest from '../dto/authorizeRequest'
 
 @Controller(definition)
 export default class RedditController extends ModuleControllerBase {
