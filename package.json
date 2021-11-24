@@ -36,7 +36,7 @@
     "@types/glob": "7.2.0",
     "@types/got": "9.6.12",
     "@types/jest": "27.0.3",
-    "@types/node": "16.11.9",
+    "@types/node": "16.11.10",
     "@types/pino": "6.3.12",
     "@types/supertest": "2.0.11",
     "@types/xml2js": "0.4.9",
