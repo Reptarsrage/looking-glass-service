@@ -1276,9 +1276,9 @@ camelize@^1.0.0:
   integrity sha1-FkpUg+Yw+kMh5a8HAg5TGDGyYJs=
 
 caniuse-lite@^1.0.30001286:
-  version "1.0.30001292"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001292.tgz#4a55f61c06abc9595965cfd77897dc7bc1cdc456"
-  integrity sha512-jnT4Tq0Q4ma+6nncYQVe7d73kmDmE9C3OGTx3MvW7lBM/eY1S1DZTMBON7dqV481RhNiS5OxD7k9JQvmDOTirw==
+  version "1.0.30001294"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001294.tgz#4849f27b101fd59ddee3751598c663801032533d"
+  integrity sha512-LiMlrs1nSKZ8qkNhpUf5KD0Al1KCBE3zaT7OLOwEkagXMEDij98SiOovn9wxVGQpklk9vVC/pUSqgYmkmKOS8g==
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -1790,9 +1790,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.4.17:
-  version "1.4.28"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.28.tgz#fef0e92e281df6d568f482d8d53c34ca5374de48"
-  integrity sha512-Gzbf0wUtKfyPaqf0Plz+Ctinf9eQIzxEqBHwSvbGfeOm9GMNdLxyu1dNiCUfM+x6r4BE0xUJNh3Nmg9gfAtTmg==
+  version "1.4.29"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.29.tgz#a9b85ab888d0122124c9647c04d8dd246fae94b6"
+  integrity sha512-N2Jbwxo5Rum8G2YXeUxycs1sv4Qme/ry71HG73bv8BvZl+I/4JtRgK/En+ST/Wh/yF1fqvVCY4jZBgMxnhjtBA==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -2193,20 +2193,20 @@ fastify-warning@^0.2.0:
   integrity sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==
 
 fastify@^3.9.1:
-  version "3.25.2"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.25.2.tgz#09c10a66b89bef4a4b74d0f35d9ee6e2d71585e3"
-  integrity sha512-uH0RN/l2GrpvOpun5V4mLvreUjbTlgsEqodExGrmCDsBPfvUQ07Q0ZEY0HIB0TgJTr/ey6dAxlGzAZelV6CNXg==
+  version "3.25.3"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.25.3.tgz#7a2578edbdb59729cbf48ec44b5ae2b0f8db1f4a"
+  integrity sha512-20SbobjjMfjGNCU4PlcZis3d5XLDtQxIbcAf6ogi/8zPxRxOOkKwfjmj7yW9Q1VnxDpBwcllwPtbZ/LyvQzXbQ==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
     abstract-logging "^2.0.0"
     avvio "^7.1.2"
     fast-json-stringify "^2.5.2"
     fastify-error "^0.3.0"
-    fastify-warning "^0.2.0"
     find-my-way "^4.5.0"
     flatstr "^1.0.12"
     light-my-request "^4.2.0"
     pino "^6.13.0"
+    process-warning "^1.0.0"
     proxy-addr "^2.0.7"
     rfdc "^1.1.4"
     secure-json-parse "^2.0.0"
@@ -3935,28 +3935,28 @@ pino-std-serializers@^4.0.0:
   integrity sha512-cK0pekc1Kjy5w9V2/n+8MkZwusa6EyyxfeQCB799CQRhRt/CqYKiWs5adeu8Shve2ZNffvfC/7J64A2PJo1W/Q==
 
 pino@^6.13.0:
-  version "6.13.3"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-6.13.3.tgz#60b93bcda1541f92fb37b3f2be0a25cf1d05b6fe"
-  integrity sha512-tJy6qVgkh9MwNgqX1/oYi3ehfl2Y9H0uHyEEMsBe74KinESIjdMrMQDWpcZPpPicg3VV35d/GLQZmo4QgU2Xkg==
+  version "6.13.4"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-6.13.4.tgz#e7bd5e8292019609c841c37a3f1d73ee10bb80f7"
+  integrity sha512-g4tHSISmQJYUEKEMVdaZ+ZokWwFnTwZL5JPn+lnBVZ1BuBbrSchrXwQINknkM5+Q4fF6U9NjiI8PWwwMDHt9zA==
   dependencies:
     fast-redact "^3.0.0"
     fast-safe-stringify "^2.0.8"
-    fastify-warning "^0.2.0"
     flatstr "^1.0.12"
     pino-std-serializers "^3.1.0"
+    process-warning "^1.0.0"
     quick-format-unescaped "^4.0.3"
     sonic-boom "^1.0.2"
 
 pino@^7.6.0:
-  version "7.6.1"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-7.6.1.tgz#351fb705a86ccd68c873254762db6caab1d11037"
-  integrity sha512-elKmRwO2h3kamfFZmlBNgoZ8WKhKxbPuYOGXKEsPbIXqHnBU1M1haswvsUP9/iJ56Jo7vkqTu1RiU/r5Xtl8YA==
+  version "7.6.2"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-7.6.2.tgz#73d09dcf13079fd0a2fa7e8648f715d5082e63d8"
+  integrity sha512-GTzW+HHOzUTaPIyvK6tasky2jMXF1o3iw7Oc2ik7qFjcaexXfyn6ej72XwX4O+wuRyFCbp3oKpv00htrPddv5A==
   dependencies:
     fast-redact "^3.0.0"
-    fastify-warning "^0.2.0"
     on-exit-leak-free "^0.2.0"
     pino-abstract-transport v0.5.0
     pino-std-serializers "^4.0.0"
+    process-warning "^1.0.0"
     quick-format-unescaped "^4.0.3"
     real-require "^0.1.0"
     safe-stable-stringify "^2.1.0"
@@ -4035,6 +4035,11 @@ process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
+
+process-warning@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/process-warning/-/process-warning-1.0.0.tgz#980a0b25dc38cd6034181be4b7726d89066b4616"
+  integrity sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==
 
 progress@^2.0.0:
   version "2.0.3"
