@@ -1345,9 +1345,9 @@ cheerio@^1.0.0-rc.9:
     tslib "^2.2.0"
 
 chokidar@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.2.tgz#dba3976fcadb016f66fd365021d91600d01c1e75"
-  integrity sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ==
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.3.tgz#1cf37c8707b932bd1af1ae22c0432e2acd1903bd"
+  integrity sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==
   dependencies:
     anymatch "~3.1.2"
     braces "~3.0.2"
@@ -1773,9 +1773,9 @@ dot-prop@^5.2.0:
     is-obj "^2.0.0"
 
 dotenv@^14.0.0:
-  version "14.1.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.1.0.tgz#66e9c0c448501b006f4dd9f08080c9011c7a5e6c"
-  integrity sha512-h8V+Yfa8m0YSjf3Rgbno51cxWldb4PEixIJVL55VmW7uAfeLQKiaPrEUiBps+ARK9MeqjJgTf269OMmu6lOODQ==
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-14.2.0.tgz#7e77fd5dd6cff5942c4496e1acf2d0f37a9e67aa"
+  integrity sha512-05POuPJyPpO6jqzTNweQFfAyMSD4qa4lvsMOWyTRTdpHKy6nnnN+IYWaXF+lHivhBH/ufDKlR4IWCAN3oPnHuw==
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -1813,9 +1813,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.4.17:
-  version "1.4.46"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.46.tgz#c88a6fedc766589826db0481602a888864ade1ca"
-  integrity sha512-UtV0xUA/dibCKKP2JMxOpDtXR74zABevuUEH4K0tvduFSIoxRVcYmQsbB51kXsFTX8MmOyWMt8tuZAlmDOqkrQ==
+  version "1.4.47"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.47.tgz#5d5535cdbca2b9264abee4d6ea121995e9554bbe"
+  integrity sha512-ZHc8i3/cgeCRK/vC7W2htAG6JqUmOUgDNn/f9yY9J8UjfLjwzwOVEt4MWmgJAdvmxyrsR5KIFA/6+kUHGY0eUA==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -4492,9 +4492,9 @@ sonic-boom@^1.0.2:
     flatstr "^1.0.12"
 
 sonic-boom@^2.2.1:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-2.5.0.tgz#269c62cc2255705ab22f3df7c27cafe9b65bac1a"
-  integrity sha512-zqxF6/LwJRn/twgva2GzabvBh2TeSEzstfnZ44kr0nB7+tFJJbixMlm4VUH/1FPjTf0sHQePoH8TlkfYNvXSPA==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-2.6.0.tgz#8786fc78be07c18a90381acd816d1d4afe3537a2"
+  integrity sha512-6xYZFRmDEtxGqfOKcDQ4cPLrNa0SPEDI+wlzDAHowXE6YV42NeXqg9mP2KkiM8JVu3lHfZ2iQKYlGOz+kTpphg==
   dependencies:
     atomic-sleep "^1.0.0"
 
