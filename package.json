@@ -63,7 +63,7 @@
     "camelize": "^1.0.0",
     "cheerio": "^1.0.0-rc.9",
     "decamelize-keys": "^1.1.0",
-    "dotenv": "^14.0.0",
+    "dotenv": "^15.0.0",
     "fastify": "^3.9.1",
     "fastify-compress": "^4.0.0",
     "fastify-cors": "^6.0.0",
