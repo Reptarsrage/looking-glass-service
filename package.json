@@ -36,7 +36,7 @@
     "@types/glob": "7.2.0",
     "@types/got": "9.6.12",
     "@types/jest": "27.4.0",
-    "@types/node": "16.11.24",
+    "@types/node": "16.11.25",
     "@types/supertest": "2.0.11",
     "@types/xml2js": "0.4.9",
     "@typescript-eslint/eslint-plugin": "5.11.0",
