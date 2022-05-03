@@ -35,7 +35,7 @@
   "devDependencies": {
     "@types/glob": "7.2.0",
     "@types/got": "9.6.12",
-    "@types/jest": "27.4.1",
+    "@types/jest": "27.5.0",
     "@types/node": "16.11.33",
     "@types/supertest": "2.0.12",
     "@types/xml2js": "0.4.11",
