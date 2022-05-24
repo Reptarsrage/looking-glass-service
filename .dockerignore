@@ -76,3 +76,12 @@ typings/
 
 # Service worker
 sw.*
+
+# tap snapshots
+tap-snapshots
+
+# github actions
+.github
+
+# vscode
+.vscode

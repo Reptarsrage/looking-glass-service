@@ -3,7 +3,6 @@
   "productName": "The Looking-Glass Service",
   "version": "1.0.0",
   "description": "This service serves up content from across the web.",
-  "main": "index.js",
   "license": "Unlicense",
   "repository": {
     "type": "git",
@@ -23,73 +22,53 @@
   ],
   "homepage": "https://github.com/reptarsrage/looking-glass-service#readme",
   "scripts": {
-    "prestart": "yarn build",
-    "start": "cross-env NODE_ENV=production node dist/index.js | ./node_modules/.bin/pino-colada",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.ts | ./node_modules/.bin/pino-colada",
-    "prebuild": "rimraf ./dist",
-    "build": "tsc -p tsconfig.build.json",
-    "test": "cross-env NODE_ENV=test jest",
-    "lint": "eslint --cache --format=pretty \"{src,test}/**/*.ts\"",
-    "prepare": "husky install"
-  },
-  "devDependencies": {
-    "@types/glob": "7.2.0",
-    "@types/got": "9.6.12",
-    "@types/jest": "27.5.1",
-    "@types/node": "16.11.36",
-    "@types/supertest": "2.0.12",
-    "@types/xml2js": "0.4.11",
-    "@typescript-eslint/eslint-plugin": "5.11.0",
-    "@typescript-eslint/parser": "5.11.0",
-    "cross-env": "7.0.3",
-    "eslint": "8.16.0",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-formatter-pretty": "4.1.0",
-    "eslint-plugin-prettier": "4.0.0",
-    "husky": "8.0.1",
-    "jest": "27.5.1",
-    "lint-staged": "12.4.1",
-    "nodemon": "2.0.16",
-    "pino-colada": "2.2.2",
-    "prettier": "2.6.2",
-    "rimraf": "3.0.2",
-    "supertest": "6.2.3",
-    "ts-jest": "27.1.5",
-    "ts-node": "10.8.0",
-    "typescript": "4.6.4"
+    "format": "prettier --write src",
+    "lint": "tsc --noEmit --pretty && eslint --ext .js,.ts src",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "concurrently \"tsc -p tsconfig.json --watch\" \"nodemon -q dist/server.js\"",
+    "test": "tap --ts",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "axios": "^0.27.0",
-    "camelize": "^1.0.0",
-    "cheerio": "^1.0.0-rc.9",
-    "decamelize-keys": "^1.1.0",
+    "@fastify/caching": "^7.0.0",
+    "@fastify/cors": "^7.0.0",
+    "@fastify/env": "^3.0.0",
+    "@fastify/static": "^5.0.0",
+    "ajv": "^8.11.0",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.10",
     "dotenv": "^16.0.0",
-    "fastify": "^3.9.1",
-    "fastify-compress": "^4.0.0",
-    "fastify-cors": "^6.0.0",
-    "fastify-helmet": "^7.0.0",
-    "fastify-static": "^4.0.0",
-    "glob": "^8.0.0",
-    "got": "^11.8.1",
-    "image-size": "^1.0.0",
+    "fastify": "^3.29.0",
+    "fastify-plugin": "^3.0.1",
+    "fluent-json-schema": "^3.1.0",
     "js-sha256": "^0.9.0",
     "jspack": "^0.0.4",
-    "moment": "^2.29.1",
-    "pino": "^7.6.0",
-    "uuid": "^8.3.2",
-    "xml2js": "^0.4.23"
+    "nanoid": "^3.3.3",
+    "pino": "^7.11.0"
   },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "eslint --cache --format=pretty",
-      "prettier --write"
-    ],
-    "*.{md,json,yml}": [
-      "prettier --write"
-    ]
+  "devDependencies": {
+    "@types/node": "^17.0.30",
+    "@types/tap": "^15.0.7",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "concurrently": "^7.1.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "nano-staged": "^0.8.0",
+    "nodemon": "^2.0.16",
+    "pino-pretty": "^7.6.1",
+    "prettier": "^2.6.2",
+    "simple-git-hooks": "^2.7.0",
+    "tap": "^16.2.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.6.4"
   },
-  "devEngines": {
-    "node": ">=15.x",
-    "yarn": ">=1.x"
+  "simple-git-hooks": {
+    "pre-commit": "npx tsc --noEmit --pretty && npx nano-staged"
+  },
+  "nano-staged": {
+    "src/**/*.ts": "eslint --fix",
+    "src/**": "prettier --write"
   }
 }

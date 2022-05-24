@@ -1,26 +1,20 @@
-import got, { HTTPError, Response } from 'got'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import logger from '../logger'
+import axios, { AxiosRequestHeaders } from "axios";
+import type { FastifyReply } from "fastify";
+import type { Readable } from "node:stream";
 
-export default function stream(url: string, headers: any, req: FastifyRequest, res: FastifyReply): void {
-  const { referer, host, 'sec-fetch-site': _, 'sec-fetch-mode': __, 'sec-fetch-dest': ___, ...reqHeaders } = req.headers
-  const options = {
-    headers,
+export default async function stream(url: string, headers: AxiosRequestHeaders, res: FastifyReply): Promise<void> {
+  try {
+    const response = await axios.get<Readable>(url, {
+      headers,
+      responseType: "stream",
+    });
+
+    if (response.status >= 200 && response.status < 300) {
+      response.headers["cache-control"] = "public, max-age=31536000";
+    }
+
+    response.data.pipe(res.raw);
+  } catch (error: unknown) {
+    res.send(error);
   }
-
-  got
-    .stream(url, options)
-    .on('response', (response: Response) => {
-      // always set cache control headers for proxied content
-      // we exclusively proxy image and video requests
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        response.headers['cache-control'] = 'public, max-age=31536000'
-      }
-    })
-    .on('error', (e: HTTPError) => {
-      const statusCode = (e.response && e.response.statusCode) || 500
-      logger.warn(`Proxy Http Error: ${statusCode}: ${e.message}`)
-      res.status(statusCode).send()
-    })
-    .pipe(res.raw)
 }

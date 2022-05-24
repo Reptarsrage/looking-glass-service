@@ -1,53 +1,58 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import type PageResponse from "../dto/pageResponse";
+import type FilterResponse from "../dto/filterResponse";
+import ModuleControllerBase, {
+  GetAuthorizeParams,
+  GetFiltersParams,
+  GetProxyParams,
+  GetRefreshParams,
+} from "../base/base.controller";
+import type AuthResponse from "../dto/authResponse";
+import type { GetPageParams } from "../base/base.controller";
+import definition from "./pixiv.definition";
+import * as pixivService from "./pixiv.service";
+import { truthy } from "../utils";
 
-import PageResponse from '../dto/pageResponse'
-import AuthResponse from '../dto/authResponse'
-import FilterResponse from '../dto/filterResponse'
-import PageRequest from '../dto/pageRequest'
-import { ModuleControllerBase } from '../base/base.controller'
-import { Controller } from '../base/registeredControllers'
-import definition from './pixiv.definition'
-import * as pixivService from './pixiv.service'
-import AuthorizeRequest from '../dto/authorizeRequest'
-
-@Controller(definition)
 export default class RedditController extends ModuleControllerBase {
-  async getPage(req: FastifyRequest, accessToken: string, params: PageRequest): Promise<PageResponse> {
-    const { query, sort, galleryId } = params
-    let { offset, filters } = params
-    filters = filters || []
-    offset = Math.max(0, offset || 0)
+  public static definition = definition;
+
+  override async getPage({ params, accessToken, req }: GetPageParams): Promise<PageResponse> {
+    const { query = "", sort = "", galleryId = "" } = params;
+    let { offset, filters } = params;
+    if (typeof filters === "string") {
+      filters = [filters];
+    }
+
+    filters = (filters || []).filter(truthy);
+    offset = Math.max(1, offset || 1);
 
     if (galleryId) {
-      return pixivService.getGalleryPage(accessToken, req.hostname, galleryId, offset)
+      return pixivService.getGalleryPage(accessToken, req.hostname, galleryId, offset);
     }
 
     if (query || filters.length > 0) {
-      return pixivService.searchIllust(accessToken, req.hostname, offset, filters, query)
+      return pixivService.searchIllust(accessToken, req.hostname, offset, filters, query);
     }
 
-    return pixivService.getContentPage(accessToken, req.hostname, offset, sort)
+    return pixivService.getContentPage(accessToken, req.hostname, offset, sort);
   }
 
-  async getAuthorize(request: AuthorizeRequest): Promise<AuthResponse> {
-    return pixivService.authorize(request.code)
+  override async getAuthorize({ params }: GetAuthorizeParams): Promise<AuthResponse> {
+    return pixivService.authorize(params.code);
   }
 
-  async getRefresh(refreshToken: string): Promise<AuthResponse> {
-    return pixivService.refresh(refreshToken)
+  override async getRefresh({ refreshToken }: GetRefreshParams): Promise<AuthResponse> {
+    return pixivService.refresh(refreshToken);
   }
 
-  async getFilters(filter: string, itemId: string, accessToken: string): Promise<FilterResponse[]> {
-    return pixivService.filters(accessToken, filter)
+  override async getFilters({ filter, accessToken }: GetFiltersParams): Promise<FilterResponse[]> {
+    return pixivService.filters(accessToken, filter);
   }
 
-  getProxy(uri: string, res: FastifyReply, accessToken: string, req: FastifyRequest): void {
-    const options = {
-      headers: {
-        Referer: 'http://www.pixiv.net/',
-      },
-    }
+  override getProxy({ uri, res }: GetProxyParams): void {
+    const headers = {
+      referer: "http://www.pixiv.net/",
+    };
 
-    this.proxyHelper(uri, options, req, res)
+    this.proxyHelper(uri, headers, res);
   }
 }

@@ -1,43 +1,45 @@
-import { FastifyRequest } from 'fastify'
+import type PageResponse from "../dto/pageResponse";
+import type AuthResponse from "../dto/authResponse";
+import type FilterResponse from "../dto/filterResponse";
+import ModuleControllerBase from "../base/base.controller";
+import type { GetPageParams, GetAuthorizeParams, GetRefreshParams, GetFiltersParams } from "../base/base.controller";
+import definition from "./reddit.definition";
+import * as redditService from "./reddit.service";
+import { truthy } from "../utils";
 
-import PageResponse from '../dto/pageResponse'
-import AuthResponse from '../dto/authResponse'
-import FilterResponse from '../dto/filterResponse'
-import PageRequest from '../dto/pageRequest'
-import AuthorizeRequest from '../dto/authorizeRequest'
-import { ModuleControllerBase } from '../base/base.controller'
-import { Controller } from '../base/registeredControllers'
-import definition from './reddit.definition'
-import * as redditService from './reddit.service'
-
-@Controller(definition)
 export default class RedditController extends ModuleControllerBase {
-  async getPage(req: FastifyRequest, accessToken: string, params: PageRequest): Promise<PageResponse> {
-    const { after, query, sort } = params
-    let { offset, filters } = params
-    filters = filters || []
-    offset = Math.max(0, offset || 0)
+  public static definition = definition;
+
+  override async getPage({ req, accessToken, params }: GetPageParams): Promise<PageResponse> {
+    const { after = "", query = "", sort = "" } = params;
+    let { offset, filters } = params;
+    if (typeof filters === "string") {
+      filters = [filters];
+    }
+
+    filters = (filters || []).filter(truthy);
+    offset = Math.max(0, offset || 0);
 
     if (query) {
-      return redditService.getSearch(accessToken, offset, after, query, sort, filters)
+      return redditService.getSearch(accessToken, offset, after, query, sort, filters, req.log);
     }
 
-    return redditService.getListing(accessToken, offset, after, sort, filters)
+    return redditService.getListing(accessToken, offset, after, sort, filters, req.log);
   }
 
-  async getAuthorize(request: AuthorizeRequest): Promise<AuthResponse> {
-    return redditService.authorize(request.code)
+  override async getAuthorize({ params }: GetAuthorizeParams): Promise<AuthResponse> {
+    return redditService.authorize(params.code);
   }
 
-  async getRefresh(refreshToken: string): Promise<AuthResponse> {
-    return redditService.refresh(refreshToken)
+  override async getRefresh({ refreshToken }: GetRefreshParams): Promise<AuthResponse> {
+    return redditService.refresh(refreshToken);
   }
 
-  async getFilters(filter: string, itemId: string, accessToken: string): Promise<FilterResponse[]> {
+  override async getFilters({ accessToken, filter, itemId, req }: GetFiltersParams): Promise<FilterResponse[]> {
     if (itemId) {
-      return redditService.filtersForItem(accessToken, itemId)
+      return redditService.filtersForItem(accessToken, itemId, req.log);
     }
 
-    return redditService.filters(accessToken, filter)
+    return redditService.filters(accessToken, filter, req.log);
   }
 }
