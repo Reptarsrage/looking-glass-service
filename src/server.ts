@@ -1,37 +1,20 @@
-import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
-import cors from 'fastify-cors'
-import helmet from 'fastify-helmet'
-import compression from 'fastify-compress'
-import fastifyStatic from 'fastify-static'
-import * as path from 'path'
+import "dotenv/config";
+import { build } from "./app";
 
-import configureRoutes from './routes'
+const server = build({
+  logger: {
+    level: process.env.LOG_LEVEL ?? "debug",
+    prettyPrint: true,
+  },
+});
 
-/**
- * creates the fastify server
- * adds all middleware
- * configures all routes
- */
-function createServer(opts: FastifyServerOptions = {}): FastifyInstance {
-  // create fastify app
-  const app = fastify(opts)
+const port = parseInt(process.env.PORT ?? "3001", 10);
+const host = process.env.HOST ?? "127.0.0.1";
+server.listen(port, host, (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
 
-  // add cors middleware
-  app.register(cors)
-
-  // add compression middleware
-  app.register(compression)
-
-  // add security middleware
-  app.register(helmet)
-
-  // add serving of static files
-  app.register(fastifyStatic, { root: path.resolve(__dirname, '..', 'public') })
-
-  // add the other routes
-  configureRoutes(app)
-
-  return app
-}
-
-export default createServer
+  console.log(`Server listening at ${address}`);
+});

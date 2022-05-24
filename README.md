@@ -11,11 +11,11 @@ A service for use with the [looking glass client application](https://github.com
 
 ## Install
 
-Install the dependencies with `yarn`.
+Install the dependencies with `npm`.
 
 ```bash
-cd your-project-name
-yarn install
+cd looking-glass-service
+npm install
 ```
 
 ## Setting up the environment
@@ -23,46 +23,46 @@ yarn install
 For local development, create a `.env` file in the project root directory with the following environment variables:
 
 ```
-PORT=
+NODE_ENV=development
+LOG_LEVEL=warn
+HOST=127.0.0.1
+PORT=3001
 REDDIT_CLIENT_ID=
 REDDIT_USER_AGENT=
 IMGUR_CLIENT_ID=
 GIPHY_API_KEY=
 PIXIV_CLIENT_ID=
 PIXIV_CLIENT_SECRET=
-PIXIV_HASH_SECRET=
 ```
 
 > NOTE: To self - These are saved in LastPass.
 
 ## Running the app
 
-Run the app using `nodemon` or `node` via `yarn` scripts:
+Run the app using `npm` scripts:
 
 ```bash
 # development
-yarn dev
+npm run dev
 
 # production mode
-yarn start
+npm run build
+npm run start
 ```
 
 ## Test
 
-Run unit tests using the `jest-cli` via `yarn` scripts:
+Run unit tests using `npm` scripts:
 
 ```bash
 # unit tests
-yarn test
+npm test
 
 # watch
-yarn test --watch
-
-# test coverage
-yarn test --coverage
+npm test -- --watch
 ```
 
-> NOTE: More on the `jest-cli` here: https://jestjs.io/docs/en/cli
+> NOTE: More on the `tap` CLI here: https://node-tap.org/docs/cli/
 
 ## Docker
 

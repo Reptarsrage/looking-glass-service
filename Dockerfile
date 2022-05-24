@@ -6,20 +6,17 @@ EXPOSE 3001
 # restore
 FROM env as restore
 WORKDIR /src
-Copy ./package.json .
-RUN yarn install \
-  --prefer-offline \
-  --pure-lockfile \
-  --non-interactive \
-  --production=false
+COPY package*.json ./
+RUN npm install
 
 # build
 FROM restore as build
 WORKDIR /src
 COPY . .
-RUN yarn build
+RUN npm run build
+RUN [ -f prod.env ] && mv prod.env /src/dist/.env
 
 # run
 FROM build as final
 WORKDIR /src/dist
-CMD [ "node", "index.js" ]
+CMD [ "node", "server.js" ]

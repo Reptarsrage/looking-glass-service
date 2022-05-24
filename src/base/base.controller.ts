@@ -1,51 +1,90 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { FastifyRequest, FastifyReply } from 'fastify'
+import type { FastifyRequest, FastifyReply } from "fastify";
+import type { AxiosRequestHeaders } from "axios";
 
-import PageResponse from '../dto/pageResponse'
-import AuthResponse from '../dto/authResponse'
-import FilterResponse from '../dto/filterResponse'
-import LoginRequest from '../dto/loginRequest'
-import PageRequest from '../dto/pageRequest'
-import AuthorizeRequest from '../dto/authorizeRequest'
-import stream from './stream'
+import PageResponse from "../dto/pageResponse";
+import AuthResponse from "../dto/authResponse";
+import FilterResponse from "../dto/filterResponse";
+import LoginRequest from "../dto/loginRequest";
+import PageRequest from "../dto/pageRequest";
+import AuthorizeRequest from "../dto/authorizeRequest";
+import ModuleResponse from "../dto/moduleResponse";
+import stream from "./stream";
+import type { Config } from "../config";
 
-export class NotImplementedException extends Error {
-  name = 'NotImplementedError'
-  message = 'Method Not Implemented'
+class NotImplementedException extends Error {
+  name = "NotImplementedError";
+  message = "Method Not Implemented";
 }
 
-export abstract class ModuleControllerBase {
-  getPage(req: FastifyRequest, accessToken: string, params: PageRequest): Promise<PageResponse> {
-    throw new NotImplementedException()
+interface CommonParams {
+  req: FastifyRequest;
+  res: FastifyReply;
+  config: Config;
+}
+
+export interface GetPageParams extends CommonParams {
+  accessToken: string;
+  params: PageRequest;
+}
+
+export interface GetLoginParams extends CommonParams {
+  params: LoginRequest;
+}
+
+export interface GetAuthorizeParams extends CommonParams {
+  params: AuthorizeRequest;
+}
+
+export interface GetRefreshParams extends CommonParams {
+  refreshToken: string;
+}
+
+export interface GetProxyParams extends CommonParams {
+  uri: string;
+}
+
+export interface GetFiltersParams extends CommonParams {
+  filter: string;
+  itemId: string;
+  accessToken: string;
+}
+
+export default abstract class ModuleControllerBase {
+  public static definition: ModuleResponse;
+
+  getPage(params: GetPageParams): Promise<PageResponse> {
+    throw new NotImplementedException();
   }
 
-  getLogin(request: LoginRequest): Promise<AuthResponse> {
-    throw new NotImplementedException()
+  getLogin(params: GetLoginParams): Promise<AuthResponse> {
+    throw new NotImplementedException();
   }
 
-  getAuthorize(request: AuthorizeRequest): Promise<AuthResponse> {
-    throw new NotImplementedException()
+  getAuthorize(params: GetAuthorizeParams): Promise<AuthResponse> {
+    throw new NotImplementedException();
   }
 
-  getRefresh(refreshToken: string): Promise<AuthResponse> {
-    throw new NotImplementedException()
+  getRefresh(params: GetRefreshParams): Promise<AuthResponse> {
+    throw new NotImplementedException();
   }
 
-  getProxy(uri: string, res: FastifyReply, accessToken: string, req: FastifyRequest): void {
-    this.proxyHelper(uri, { headers: {} }, req, res)
+  getProxy(params: GetProxyParams): void {
+    this.proxyHelper(params.uri, {}, params.res);
   }
 
-  getFilters(filter: string, itemId: string, accessToken: string): Promise<FilterResponse[]> {
-    throw new NotImplementedException()
+  getFilters(params: GetFiltersParams): Promise<FilterResponse[]> {
+    throw new NotImplementedException();
   }
 
   /**
    * helps out proxy by stripping out unwanted headers
    *
-   * @param options - Options to be passed to got stream
-   * @param req  - Request
+   * @param url - URL to fetch and stream back to user
+   * @param headers - Headers to be forwarded to URL
+   * @param res - Fastify reply
    */
-  protected proxyHelper(url: string, options: any, req: FastifyRequest, res: FastifyReply): void {
-    stream(url, (options || {}).headers, req, res)
+  protected proxyHelper(url: string, headers: AxiosRequestHeaders, res: FastifyReply): void {
+    stream(url, headers, res);
   }
 }

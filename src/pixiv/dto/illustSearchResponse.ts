@@ -1,69 +1,75 @@
 export interface PixivUser {
-  id: number
-  name: string
-  account: string
-  profileImageUrls: {
-    medium: string
-  }
-  comment: string
-  isFollowed: boolean
+  id: number;
+  name: string;
+  account: string;
+  profile_image_urls: {
+    medium: string;
+  };
+  comment: string;
+  is_followed: boolean;
 }
 
 export interface PixivTag {
-  name: string
-  translatedName: string | null
-  addedByUploadedUser?: boolean
-  illust?: PixivIllust
-  isRegistered?: boolean
+  name: string;
+  translated_name: string | null;
+  added_by_uploaded_user?: boolean;
+  illust?: PixivIllust;
+  is_registered?: boolean;
 }
 
 export interface PixivMetaPage {
-  imageUrls: {
-    squareMedium: string
-    medium: string
-    large: string
-    original: string
-  }
+  image_urls: ImageUrls;
+}
+
+export interface ImageUrls {
+  square_medium: string;
+  medium: string;
+  large: string;
+  original: string;
 }
 
 export interface PixivIllust {
-  id: number
-  title: string
-  type: string
-  imageUrls: {
-    squareMedium: string
-    medium: string
-    original: string
-    large?: string
-  }
-  caption: string
-  restrict: number
-  user: PixivUser
-  tags: PixivTag[]
-  tools: string[]
-  createDate: string
-  pageCount: number
-  width: number
-  height: number
-  sanityLevel: number
-  metaSinglePage: {
-    originalImageUrl?: string
-  }
-  metaPages: PixivMetaPage[]
-  totalView: number
-  totalBookmarks: number
-  isBookmarked: boolean
-  visible: boolean
-  isMuted: boolean
-  totalComments: number
+  id: number;
+  title: string;
+  type: string;
+  image_urls: ImageUrls;
+  caption: string;
+  restrict: number;
+  user: PixivUser;
+  tags: PixivTag[];
+  tools: string[];
+  create_date: string;
+  page_count: number;
+  width: number;
+  height: number;
+  sanity_level: number;
+  meta_single_page: {
+    original_image_url?: string;
+  };
+  meta_pages: PixivMetaPage[];
+  total_view: number;
+  total_bookmarks: number;
+  is_bookmarked: boolean;
+  visible: boolean;
+  is_muted: boolean;
+  total_comments: number;
 }
 
 export interface PixivIllustSearch {
-  illusts: PixivIllust[]
-  nextUrl: string | null
-  searchSpanLimit?: number
+  illusts: PixivIllust[];
+  next_url: string | null;
+  search_span_limit?: number;
 }
 
 export interface PixivIllustDetail {
-  illust: PixivIllust
+  illust: PixivIllust;
+}
+
+export interface Tag {
+  tag: string;
+  translated_name: string | null;
+}
+
+export interface PixivTagsResponse {
+  trend_tags: Tag[];
 }
