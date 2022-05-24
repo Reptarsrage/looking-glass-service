@@ -17,13 +17,9 @@ glob.sync(path.resolve(__dirname, '**', '!(base|app).controller.{js,ts}')).map((
 function configure(app: FastifyInstance): void {
   // add main route
   app.get('/', async (req, res) => {
-    try {
-      const response = await rootController.getModules(req)
-      return response
-    } catch (error) {
-      logger.error(error, `Error executing '/'`)
-      res.status(500).send({ error: 'An unexpected error occurred' })
-    }
+    res.header('cache-control', 'public, max-age=3600') // cache modules for an hour
+    const response = await rootController.getModules(req)
+    return response
   })
 
   // add routes for all registered controllers
@@ -32,6 +28,7 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}`, async (req, res) => {
       try {
+        res.header('cache-control', 'public, max-age=3600') // cache page for an hour
         const accessToken = req.headers['access-token'] as string
         let filters = req.query['filters'] as string | string[]
         if (typeof filters === 'string' || filters instanceof String) {
@@ -57,10 +54,10 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/login`, async (req, res) => {
       try {
+        res.header('cache-control', 'no-cache') // no caching for auth
         const username = req.query['username'] as string
         const password = req.query['password'] as string
         const response = await controller.getLogin({ username, password })
-        res.header('cache-control', 'no-cache') // no caching for auth
         return response
       } catch (error) {
         logger.error(error, `Error executing '/${moduleId}/login'`)
@@ -70,9 +67,9 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/authorize`, async (req, res) => {
       try {
+        res.header('cache-control', 'no-cache') // no caching for auth
         const code = req.query['code'] as string
         const response = await controller.getAuthorize({ code })
-        res.header('cache-control', 'no-cache') // no caching for auth
         return response
       } catch (error) {
         logger.error(error, `Error executing '/${moduleId}/authorize'`)
@@ -82,9 +79,9 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/refresh`, async (req, res) => {
       try {
+        res.header('cache-control', 'no-cache') // no caching for auth
         const refreshToken = req.headers['refresh-token'] as string
         const response = await controller.getRefresh(refreshToken)
-        res.header('cache-control', 'no-cache') // no caching for auth
         return response
       } catch (error) {
         logger.error(error, `Error executing '/${moduleId}/refresh'`)
@@ -94,11 +91,11 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/filters`, async (req, res) => {
       try {
+        res.header('cache-control', 'public, max-age=3600') // cache filters for an hour
         const accessToken = req.headers['access-token'] as string
         const filter = req.query['filter'] as string
         const itemId = req.query['itemId'] as string
         const response = await controller.getFilters(filter, itemId, accessToken)
-        res.header('cache-control','public, max-age=31536000') // cache filters for a long time!
         return response
       } catch (error) {
         logger.error(error, `Error executing '/${moduleId}/filters'`)
@@ -108,6 +105,7 @@ function configure(app: FastifyInstance): void {
 
     app.get(`/${moduleId}/proxy`, (req, res) => {
       try {
+        res.header('cache-control', 'public, max-age=3600') // cache images for an hour
         let accessToken = req.headers['access-token'] as string
         accessToken = accessToken || req.query['accessToken']
         const uri = req.query['uri'] as string

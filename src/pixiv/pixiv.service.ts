@@ -1,3 +1,4 @@
+// see: https://github.com/Pixeval/Pixeval/
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import camelize from 'camelize'
 import decamelize from 'decamelize-keys'
@@ -82,7 +83,7 @@ export async function getContentPage(
   accessToken: string,
   host: string,
   offset: number,
-  sort: string
+  sort?: string
 ): Promise<PageResponse> {
   const params = {
     restrict: 'all',
@@ -91,7 +92,8 @@ export async function getContentPage(
   }
 
   let url
-  const [feed, contentType] = sort.split('-')
+  const sortVal = sort ?? 'following'
+  const [feed, contentType] = sortVal.split('-')
   if (feed === 'recommended') {
     url = `/v1/${contentType}/recommended`
   } else if (feed === 'following') {
@@ -134,19 +136,10 @@ function parseGalleryPage(data: PixivIllustDetail, host: string, offset: number)
         id: `${id}_${i}`,
         isGallery: false,
         urls: [
-          illust.imageUrls.original,
-          illust.imageUrls.large,
-          illust.imageUrls.medium,
-          illust.imageUrls.squareMedium,
-        ]
-          .filter(Boolean)
-          .map(
-            (uri, idx): MediaResponse => ({
-              url: `http://${host}/pixiv/proxy?${stringify({ uri })}`,
-              width: idx === 0 ? width : 0,
-              height: idx === 0 ? height : 0,
-            })
-          ),
+          genImage(host, Infinity, width, height, illust.imageUrls.original),
+          genImage(host, 600, width, height, illust.imageUrls.large),
+          genImage(host, 540, width, height, illust.imageUrls.medium),
+        ].filter(Boolean),
       })
     ),
   }
@@ -161,25 +154,38 @@ function parseContentPage(data: PixivIllustSearch, host: string, offset: number)
   }
 }
 
+function genImage(
+  host: string,
+  size: number,
+  image_width: number,
+  image_height: number,
+  uri?: string
+): MediaResponse | undefined {
+  if (!uri) {
+    return
+  }
+
+  let width = Math.min(image_width, size)
+  let height = Math.min(image_height, size)
+  if (image_width > image_height) {
+    width = (image_height / image_width) * width
+  } else {
+    height = (image_width / image_height) * height
+  }
+
+  return { url: `http://${host}/pixiv/proxy?${stringify({ uri })}`, width, height }
+}
+
 function parseIllust(illust: PixivIllust, host: string): ItemResponse {
   return {
     id: illust.id.toString(),
     name: illust.title,
     urls: [
-      illust.metaSinglePage && illust.metaSinglePage.originalImageUrl,
-      illust.imageUrls.original,
-      illust.imageUrls.large,
-      illust.imageUrls.medium,
-      illust.imageUrls.squareMedium,
-    ]
-      .filter(Boolean)
-      .map(
-        (uri, idx): MediaResponse => ({
-          url: `http://${host}/pixiv/proxy?${stringify({ uri })}`,
-          width: idx === 0 ? illust.width : 0,
-          height: idx === 0 ? illust.height : 0,
-        })
-      ),
+      genImage(host, Infinity, illust.width, illust.height, illust.metaSinglePage?.originalImageUrl),
+      genImage(host, Infinity, illust.width, illust.height, illust.imageUrls.original),
+      genImage(host, 600, illust.width, illust.height, illust.imageUrls.large),
+      genImage(host, 540, illust.width, illust.height, illust.imageUrls.medium),
+    ].filter(Boolean),
     width: illust.width,
     height: illust.height,
     isVideo: false,
