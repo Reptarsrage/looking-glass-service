@@ -1,56 +1,75 @@
 // see: https://github.com/Pixeval/Pixeval/
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
-import camelize from 'camelize'
-import decamelize from 'decamelize-keys'
-import { stringify } from 'querystring'
+import { AxiosRequestConfig } from "axios";
+import * as cheerio from "cheerio";
 
-import PageResponse from '../dto/pageResponse'
-import AuthResponse from '../dto/authResponse'
-import FilterResponse from '../dto/filterResponse'
-import ItemResponse from '../dto/itemResponse'
-import MediaResponse from '../dto/mediaResponse'
-import config from '../config'
-import httpService from './pixiv.http'
-import { PixivIllust, PixivIllustDetail, PixivIllustSearch } from './dto/illustSearchResponse'
-import challenge from './pixiv.verifier'
+import PageResponse from "../dto/pageResponse";
+import AuthResponse from "../dto/authResponse";
+import FilterResponse from "../dto/filterResponse";
+import ItemResponse from "../dto/itemResponse";
+import MediaResponse from "../dto/mediaResponse";
+import httpService from "./pixiv.http";
+import { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse";
+import challenge from "./pixiv.verifier";
+import type { PixivAuthResponse } from "./dto/pixivAuthResponse";
+import { clampImageDimensions, nonNullable, truthy } from "../utils";
 
 export async function refresh(refreshToken: string): Promise<AuthResponse> {
-  const authTokenUrl = 'https://oauth.secure.pixiv.net/auth/token'
-  const body: any = {
-    clientId: config.get('PIXIV_CLIENT_ID'),
-    clientSecret: config.get('PIXIV_CLIENT_SECRET'),
-    grantType: 'refresh_token',
-    includePolicy: 'true',
-    refreshToken,
-  }
+  const authTokenUrl = "https://oauth.secure.pixiv.net/auth/token";
+  const body = new URLSearchParams([
+    ["client_id", process.env.PIXIV_CLIENT_ID ?? ""],
+    ["client_secret", process.env.PIXIV_CLIENT_SECRET ?? ""],
+    ["grant_type", "refresh_token"],
+    ["include_policy", "true"],
+    ["refresh_token", refreshToken],
+  ]);
 
-  const { data } = await httpService.post(authTokenUrl, stringify(decamelize(body)))
-  return camelize(data)
+  const { data } = await httpService.post<PixivAuthResponse>(authTokenUrl, body);
+  return {
+    accessToken: data.access_token,
+    expiresIn: data.expires_in,
+    refreshToken: data.refresh_token,
+    scope: data.scope,
+    tokenType: data.token_type,
+  };
 }
 
 export async function authorize(code: string): Promise<AuthResponse> {
-  const redirectUri = 'https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback'
-  const authTokenUrl = 'https://oauth.secure.pixiv.net/auth/token'
-  const body: any = {
-    clientId: config.get('PIXIV_CLIENT_ID'),
-    clientSecret: config.get('PIXIV_CLIENT_SECRET'),
-    code,
-    codeVerifier: challenge.codeVerifier,
-    grantType: 'authorization_code',
-    includePolicy: 'true',
-    redirectUri: redirectUri,
-  }
+  const redirectUri = "https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback";
+  const authTokenUrl = "https://oauth.secure.pixiv.net/auth/token";
+  const config = {
+    headers: {
+      "X-Client-Time": new Date().toISOString(),
+    },
+  };
 
-  const { data } = await httpService.post(authTokenUrl, stringify(decamelize(body)))
-  return camelize(data)
+  const body = new URLSearchParams([
+    ["client_id", process.env.PIXIV_CLIENT_ID ?? ""],
+    ["client_secret", process.env.PIXIV_CLIENT_SECRET ?? ""],
+    ["code", code],
+    ["code_verifier", challenge.codeVerifier],
+    ["grant_type", "authorization_code"],
+    ["include_policy", "true"],
+    ["redirect_uri", redirectUri],
+  ]);
+
+  const { data } = await httpService.post<PixivAuthResponse>(authTokenUrl, body, config);
+  return {
+    accessToken: data.access_token,
+    expiresIn: data.expires_in,
+    refreshToken: data.refresh_token,
+    scope: data.scope,
+    tokenType: data.token_type,
+  };
 }
 
 export async function filters(accessToken: string, filter: string): Promise<FilterResponse[]> {
   switch (filter) {
-    case 'tag':
-      return getTags(accessToken)
+    case "tag":
+      return getTags(accessToken);
+    case "user":
+      return Promise.resolve([]);
     default:
-      throw new Error('Unknown filter')
+      throw new Error("Unknown filter");
   }
 }
 
@@ -61,22 +80,43 @@ export async function searchIllust(
   filters: string[],
   query?: string
 ): Promise<PageResponse> {
-  const params = {
-    offset,
-    sort: 'date_desc',
-    filter: 'for_ios',
-    include_translated_tag_results: 'true',
-    word: query,
-    search_target: 'partial_match_for_tags',
+  const config: AxiosRequestConfig = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  const params = new URLSearchParams([
+    ["offset", offset.toString()],
+    ["sort", "date_desc"],
+    ["filter", "for_ios"],
+    ["include_translated_tag_results", "true"],
+    ["search_target", "partial_match_for_tags"],
+  ]);
+
+  if (query) {
+    params.set("word", query);
   }
 
-  if (filters.length > 0) {
-    params.search_target = 'exact_match_for_tags'
-    params.word = filters.join(' ') // for multiple filters join with space between
+  // separate types of filters
+  const filtersToApply = filters.filter((filter) => !filter.startsWith("user:"));
+  const userFilters = filters.filter((filter) => filter.startsWith("user:")); // should only ever be one
+
+  let url = "/v1/search/illust";
+  if (userFilters.length > 0) {
+    // we want a specific user's illustrations
+    url = "/v1/user/illusts";
+    params.set("user_id", userFilters[0].substring(5)); // take first one
   }
 
-  const { data } = await fetch('/v1/search/illust', accessToken, { params })
-  return parseContentPage(camelize(data), host, offset)
+  if (filtersToApply.length > 0) {
+    // apply filters as search terms
+    params.set("search_target", "exact_match_for_tags");
+    params.set("word", [...filtersToApply, query].filter(truthy).join(" ")); // for multiple filters join with space between
+  }
+
+  const { data } = await httpService.get<PixivIllustSearch>(`${url}?${params.toString()}`, config);
+  return parseContentPage(data, host, offset);
 }
 
 export async function getContentPage(
@@ -85,73 +125,85 @@ export async function getContentPage(
   offset: number,
   sort?: string
 ): Promise<PageResponse> {
-  const params = {
-    restrict: 'all',
-    offset,
-    filter: 'for_ios',
-  }
+  const config: AxiosRequestConfig = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
 
-  let url
-  const sortVal = sort ?? 'following'
-  const [feed, contentType] = sortVal.split('-')
-  if (feed === 'recommended') {
-    url = `/v1/${contentType}/recommended`
-  } else if (feed === 'following') {
-    url = '/v2/illust/follow'
+  const params = new URLSearchParams([
+    ["restrict", "all"],
+    ["offset", offset.toString()],
+    ["filter", "for_ios"],
+  ]);
+
+  let url;
+  const sortVal = sort ?? "following";
+  const [feed, contentType] = sortVal.split("-");
+  if (feed === "recommended") {
+    url = `/v1/${contentType}/recommended`;
+  } else if (feed === "following") {
+    url = "/v2/illust/follow";
   } else {
-    throw new Error('Unknown sort')
+    throw new Error("Unknown sort");
   }
 
-  const { data } = await fetch(url, accessToken, { params })
-  return parseContentPage(camelize(data), host, offset)
+  const { data } = await httpService.get<PixivIllustSearch>(`${url}?${params.toString()}`, config);
+  return parseContentPage(data, host, offset);
 }
 
 export async function getGalleryPage(
   accessToken: string,
   host: string,
-  galleryId: string | number,
+  galleryId: string,
   offset: number
 ): Promise<PageResponse> {
-  const params = {
-    restrict: 'all',
-    illust_id: galleryId,
-  }
+  const config: AxiosRequestConfig = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
 
-  const { data } = await fetch('/v1/illust/detail', accessToken, { params })
-  return parseGalleryPage(camelize(data), host, offset)
+  const params = new URLSearchParams([
+    ["restrict", "all"],
+    ["illust_id", galleryId],
+  ]);
+
+  const { data } = await httpService.get<PixivIllustDetail>(`/v1/illust/detail?${params.toString()}`, config);
+  return parseGalleryPage(data, host, offset);
 }
 
 function parseGalleryPage(data: PixivIllustDetail, host: string, offset: number): PageResponse {
-  const { illust } = data
-  const { metaPages, id, width, height } = illust
-  const parent = parseIllust(illust, host)
+  const { illust } = data;
+  const { meta_pages, id, width, height } = illust;
+  const parent = parseIllust(illust, host);
 
   return {
     hasNext: false,
-    offset: offset + metaPages.length,
+    offset: offset + meta_pages.length,
     after: undefined,
-    items: metaPages.map(
+    items: meta_pages.map(
       (illust, i): ItemResponse => ({
         ...parent,
         id: `${id}_${i}`,
         isGallery: false,
         urls: [
-          genImage(host, Infinity, width, height, illust.imageUrls.original),
-          genImage(host, 600, width, height, illust.imageUrls.large),
-          genImage(host, 540, width, height, illust.imageUrls.medium),
-        ].filter(Boolean),
+          genImage(host, Infinity, width, height, illust.image_urls.original),
+          genImage(host, 600, width, height, illust.image_urls.large),
+          genImage(host, 540, width, height, illust.image_urls.medium),
+        ].filter(nonNullable),
       })
     ),
-  }
+  };
 }
 
 function parseContentPage(data: PixivIllustSearch, host: string, offset: number): PageResponse {
   return {
-    hasNext: data && typeof data.nextUrl === 'string' && data.nextUrl.length > 0,
+    hasNext: data && typeof data.next_url === "string" && data.next_url.length > 0,
     offset: offset + data.illusts.length,
     after: undefined,
     items: data.illusts.map((illust) => parseIllust(illust, host)),
-  }
+  };
 }
 
 function genImage(
@@ -160,84 +212,69 @@ function genImage(
   image_width: number,
   image_height: number,
   uri?: string
-): MediaResponse | undefined {
+): MediaResponse | null {
   if (!uri) {
-    return
+    return null;
   }
 
-  let width = Math.min(image_width, size)
-  let height = Math.min(image_height, size)
-  if (image_width > image_height) {
-    width = (image_height / image_width) * width
-  } else {
-    height = (image_width / image_height) * height
-  }
-
-  return { url: `http://${host}/pixiv/proxy?${stringify({ uri })}`, width, height }
+  const [width, height] = clampImageDimensions(image_width, image_height, size);
+  return { url: `http://${host}/proxy/pixiv?${new URLSearchParams([["uri", uri]]).toString()}`, width, height };
 }
 
 function parseIllust(illust: PixivIllust, host: string): ItemResponse {
+  const authorFilter = {
+    id: `user:${illust.user.id.toString()}`,
+    name: illust.user.name,
+    filterSectionId: "user",
+  };
+
   return {
     id: illust.id.toString(),
     name: illust.title,
+    description: cheerio
+      .load(illust.caption || "")("html")
+      .text(),
     urls: [
-      genImage(host, Infinity, illust.width, illust.height, illust.metaSinglePage?.originalImageUrl),
-      genImage(host, Infinity, illust.width, illust.height, illust.imageUrls.original),
-      genImage(host, 600, illust.width, illust.height, illust.imageUrls.large),
-      genImage(host, 540, illust.width, illust.height, illust.imageUrls.medium),
-    ].filter(Boolean),
+      genImage(host, Infinity, illust.width, illust.height, illust.meta_single_page?.original_image_url),
+      genImage(host, Infinity, illust.width, illust.height, illust.image_urls.original),
+      genImage(host, 600, illust.width, illust.height, illust.image_urls.large),
+      genImage(host, 540, illust.width, illust.height, illust.image_urls.medium),
+    ].filter(nonNullable),
     width: illust.width,
     height: illust.height,
     isVideo: false,
-    isGallery: Array.isArray(illust.metaPages) && illust.metaPages.length > 0,
-    filters: illust.tags.map(
-      (tag: any): FilterResponse => ({
-        id: tag.name,
-        filterSectionId: 'tag',
-        name: tag.translated_name || tag.name,
-      })
-    ),
-  }
+    isGallery: Array.isArray(illust.meta_pages) && illust.meta_pages.length > 0,
+    filters: illust.tags
+      .map(
+        (tag): FilterResponse => ({
+          id: tag.name,
+          filterSectionId: "tag",
+          name: tag.translated_name || tag.name,
+        })
+      )
+      .concat(authorFilter),
+    date: new Date(illust.create_date).toISOString(),
+    author: authorFilter,
+  };
 }
 
 async function getTags(accessToken: string): Promise<FilterResponse[]> {
-  const params = {
-    filter: 'for_ios',
-  }
+  const params = new URLSearchParams([["filter", "for_ios"]]);
+  const config: AxiosRequestConfig = {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
 
-  const response = await fetch('/v1/trending-tags/illust', accessToken, { params })
-  return parseTags(response)
+  const { data } = await httpService.get<PixivTagsResponse>(`/v1/trending-tags/illust?${params.toString()}`, config);
+  return parseTags(data);
 }
 
-function parseTags(response: AxiosResponse): FilterResponse[] {
-  const { data } = response
-  const { trend_tags } = data
-
+function parseTags(data: PixivTagsResponse): FilterResponse[] {
+  const { trend_tags } = data;
   return trend_tags.map((tag) => ({
     id: tag.tag,
-    name: tag.translated_name || tag.tag,
-  }))
-}
-
-function fetch<T>(target: string, accessToken?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-  options = options || { method: 'GET' }
-
-  if (accessToken) {
-    options.headers = {
-      ...options.headers,
-      Authorization: `Bearer ${accessToken}`,
-    }
-  }
-
-  if (options.data) {
-    options.method = 'POST'
-    options.headers = {
-      ...options.headers,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
-    options.data = stringify(options.data)
-  }
-
-  options.url = target
-  return httpService.request<T>(options)
+    name: tag.translated_name ?? tag.tag,
+    filterSectionId: "tag",
+  }));
 }

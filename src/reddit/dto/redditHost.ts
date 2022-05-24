@@ -1,11 +1,16 @@
-import { AxiosInstance } from 'axios'
-import { Logger } from '../../logger'
-import { PostData } from './redditResponse'
-import ItemResponse from '../../dto/itemResponse'
+import type { AxiosInstance } from "axios";
+import type { FastifyLoggerInstance } from "fastify";
 
-export type ResolveFunc = (post: PostData, httpService: AxiosInstance, logger: Logger) => Promise<ItemResponse>
+import type { PostData } from "./redditResponse";
+import type ItemResponse from "../../dto/itemResponse";
+
+export type ResolveFunc = (
+  post: PostData,
+  httpService: AxiosInstance,
+  logger: FastifyLoggerInstance
+) => Promise<ItemResponse | null>;
 
 export interface Host {
-  domains: RegExp[]
-  resolve: ResolveFunc
+  domains: RegExp[];
+  resolve: ResolveFunc;
 }
