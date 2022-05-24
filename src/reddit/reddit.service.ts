@@ -193,25 +193,23 @@ export async function filtersForItem(accessToken: string, itemId: string): Promi
     const { data, kind } = listing
     const { children } = data
 
-    const listingFilters = children.map(
-      (child): FilterResponse => {
-        if (kind !== 'Listing') {
-          logger.warn(`Unknown reddit listing kind: ${kind}`)
-          throw new Error(`Unable to parse Reddit response. Unknown listing kind ${kind}`)
-        }
-
-        if (child.kind !== 't3') {
-          logger.warn(`Unknown reddit child kind: ${child.kind}`)
-          throw new Error(`Unable to parse Reddit response. Unknown child kind ${child.kind}`)
-        }
-
-        return {
-          id: child.data.subreddit_name_prefixed,
-          name: child.data.subreddit,
-          filterSectionId: 'subreddit',
-        }
+    const listingFilters = children.map((child): FilterResponse => {
+      if (kind !== 'Listing') {
+        logger.warn(`Unknown reddit listing kind: ${kind}`)
+        throw new Error(`Unable to parse Reddit response. Unknown listing kind ${kind}`)
       }
-    )
+
+      if (child.kind !== 't3') {
+        logger.warn(`Unknown reddit child kind: ${child.kind}`)
+        throw new Error(`Unable to parse Reddit response. Unknown child kind ${child.kind}`)
+      }
+
+      return {
+        id: child.data.subreddit_name_prefixed,
+        name: child.data.subreddit,
+        filterSectionId: 'subreddit',
+      }
+    })
 
     return [...accFilters, ...listingFilters]
   }, [])
@@ -282,11 +280,14 @@ async function getSubreddits(accessToken: string): Promise<FilterResponse[]> {
     // add subreddits to resulting array
     subreddits = [
       ...subreddits,
-      ...children.map((child) => ({
-        id: child.data.url,
-        name: child.data.display_name,
-        description: child.data.public_description,
-      })),
+      ...children.map(
+        (child) =>
+          ({
+            id: child.data.url,
+            name: child.data.display_name,
+            filterSectionId: 'subreddit',
+          } as FilterResponse)
+      ),
     ]
 
     // check if there's a next page
@@ -314,7 +315,7 @@ async function getMultireddits(accessToken: string): Promise<FilterResponse[]> {
   const url = `/${path}?${stringify(params)}`
   const { data: listing } = await httpService.get(url, axiosConfig)
   const { kind } = listing
-  return listing.map((multiLabel) => {
+  return listing.map((multiLabel): FilterResponse => {
     if (multiLabel.kind !== 'LabeledMulti') {
       logger.warn(`Unknown reddit label kind: ${kind}`)
       throw new Error(`Unable to parse Reddit response. Unknown label kind ${kind}`)
@@ -323,7 +324,7 @@ async function getMultireddits(accessToken: string): Promise<FilterResponse[]> {
     return {
       id: multiLabel.data.path,
       name: multiLabel.data.name,
-      description: multiLabel.data.subreddits.join(', '),
+      filterSectionId: 'multireddit',
     }
   })
 }
