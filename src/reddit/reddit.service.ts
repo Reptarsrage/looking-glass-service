@@ -236,7 +236,7 @@ export async function filtersForItem(
       return {
         id: child.data.subreddit_name_prefixed,
         name: child.data.subreddit,
-        filterSectionId: "subreddit",
+        filterSectionId: child.data.subreddit_name_prefixed.startsWith("u/") ? "user" : "subreddit",
       };
     });
 
