@@ -18,4 +18,4 @@ export const PageRequestSchema = S.object()
   .prop("query", S.string())
   .prop("after", S.string())
   .prop("sort", S.string())
-  .prop("filters", S.oneOf([S.array().items(S.string()), S.string()]));
+  .prop("filters", S.array().items(S.string()));
