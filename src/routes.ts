@@ -61,16 +61,25 @@ function configure(app: FastifyInstance): void {
     req: FastifyRequest<{ Querystring: PageRequest; Params: ModuleParams }>,
     res: FastifyReply
   ): Promise<PageResponse> {
-    const { moduleId } = req.params;
-    const accessToken = req.headers["access-token"] as string;
-    const controller = controllers[moduleId];
-    return await controller.getPage({ req, res, config, params: req.query, accessToken });
+    try {
+      const { moduleId } = req.params;
+      const accessToken = req.headers["access-token"] as string;
+      const controller = controllers[moduleId];
+      const pageResponse = await controller.getPage({ req, res, config, params: req.query, accessToken });
+      addCachingHeader(res);
+      return pageResponse;
+    } catch (error: unknown) {
+      addCachingHeader(res, 0);
+      throw error;
+    }
   }
 
   async function getLogin(
     req: FastifyRequest<{ Querystring: LoginRequest; Params: ModuleParams }>,
     res: FastifyReply
   ): Promise<AuthResponse> {
+    addCachingHeader(res, 0);
+
     const { moduleId } = req.params;
     const controller = controllers[moduleId];
     return await controller.getLogin({ req, res, config, params: req.query });
@@ -80,12 +89,16 @@ function configure(app: FastifyInstance): void {
     req: FastifyRequest<{ Querystring: AuthorizeRequest; Params: ModuleParams }>,
     res: FastifyReply
   ): Promise<AuthResponse> {
+    addCachingHeader(res, 0);
+
     const { moduleId } = req.params;
     const controller = controllers[moduleId];
     return await controller.getAuthorize({ req, res, config, params: req.query });
   }
 
   async function getRefresh(req: FastifyRequest<{ Params: ModuleParams }>, res: FastifyReply): Promise<AuthResponse> {
+    addCachingHeader(res, 0);
+
     const { moduleId } = req.params;
     const refreshToken = req.headers["refresh-token"] as string;
     const controller = controllers[moduleId];
@@ -97,17 +110,32 @@ function configure(app: FastifyInstance): void {
     req: FastifyRequest<{ Querystring: GetFiltersQueryString; Params: ModuleParams }>,
     res: FastifyReply
   ): Promise<FilterResponse[]> {
-    const { moduleId } = req.params;
-    const accessToken = req.headers["access-token"] as string;
-    const controller = controllers[moduleId];
-    return await controller.getFilters({
-      req,
-      res,
-      config,
-      accessToken,
-      filter: req.query.filter,
-      itemId: req.query.itemId,
-    });
+    try {
+      const { moduleId } = req.params;
+      const accessToken = req.headers["access-token"] as string;
+      const controller = controllers[moduleId];
+      const filterResponse = await controller.getFilters({
+        req,
+        res,
+        config,
+        accessToken,
+        filter: req.query.filter,
+        itemId: req.query.itemId,
+      });
+      addCachingHeader(res);
+      return filterResponse;
+    } catch (error: unknown) {
+      addCachingHeader(res, 0);
+      throw error;
+    }
+  }
+
+  function addCachingHeader(reply: FastifyReply, maxAge = 3600) {
+    if (maxAge <= 0) {
+      reply.header("cache-control", "no-cache");
+    } else {
+      reply.header("cache-control", `max-age=${maxAge}, must-revalidate`);
+    }
   }
 
   function getProxy(
