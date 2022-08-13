@@ -1,6 +1,5 @@
 import "dotenv/config";
 import path from "node:path";
-import fastifyCaching from "@fastify/caching";
 import fastifyEnv from "@fastify/env";
 import fastifyStatic from "@fastify/static";
 import fastifyCors from "@fastify/cors";
@@ -26,12 +25,6 @@ server.register(fastifyCors);
 
 // Plugin for serving static files as fast as possible
 server.register(fastifyStatic, { root: path.join(__dirname, "..", "public") });
-
-// General server-side cache and ETag support
-server.register(fastifyCaching, {
-  privacy: fastifyCaching.privacy.PUBLIC,
-  expiresIn: 3600,
-});
 
 const port = parseInt(process.env.PORT ?? "3001", 10);
 const host = process.env.HOST ?? "127.0.0.1";
