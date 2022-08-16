@@ -5,7 +5,7 @@ import type { Readable } from "node:stream";
 export default async function stream(
   url: string,
   headers: AxiosRequestHeaders,
-  res: FastifyReply,
+  reply: FastifyReply,
   tries = 3
 ): Promise<void> {
   try {
@@ -18,13 +18,14 @@ export default async function stream(
       response.headers["cache-control"] = "max-age=3600, must-revalidate";
     }
 
-    response.data.pipe(res.raw);
+    reply.raw.writeHead(response.status, response.headers);
+    response.data.pipe(reply.raw);
   } catch (error: unknown) {
     if (tries >= 0) {
-      await stream(url, headers, res, tries - 1);
+      await stream(url, headers, reply, tries - 1);
       return;
     }
 
-    res.send(error);
+    reply.send(error);
   }
 }

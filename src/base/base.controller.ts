@@ -42,6 +42,7 @@ export interface GetRefreshParams extends CommonParams {
 
 export interface GetProxyParams extends CommonParams {
   uri: string;
+  accessToken?: string;
 }
 
 export interface GetFiltersParams extends CommonParams {
