@@ -42,9 +42,10 @@ interface GetFiltersQueryString {
   itemId: string;
 }
 
-const GetProxyQueryStringSchema = S.object().prop("uri", S.string().required());
+const GetProxyQueryStringSchema = S.object().prop("uri", S.string().required()).prop("accessToken", S.string());
 interface GetProxyQueryString {
   uri: string;
+  accessToken?: string;
 }
 
 function configure(app: FastifyInstance): void {
@@ -117,7 +118,7 @@ function configure(app: FastifyInstance): void {
     const { moduleId } = req.params;
     const controller = controllers[moduleId];
 
-    controller.getProxy({ req, res, config, uri: req.query.uri });
+    controller.getProxy({ req, res, config, uri: req.query.uri, accessToken: req.query.accessToken });
   }
 
   // GET / - Fetches all modules
