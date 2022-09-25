@@ -1,5 +1,5 @@
 import { AxiosInstance, AxiosError } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import type { GiphyResponse } from "../../reddit/dto/giphyResponse";
 import type { PostData } from "../../reddit/dto/redditResponse";
@@ -9,11 +9,7 @@ import type { Host } from "../../reddit/dto/redditHost";
 export default class GiphyHost implements Host {
   domains: RegExp[] = [/giphy\.com/i];
 
-  async resolve(
-    post: PostData,
-    httpService: AxiosInstance,
-    logger: FastifyLoggerInstance
-  ): Promise<ItemResponse | null> {
+  async resolve(post: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = post;
     const date = new Date(created_utc * 1000).toISOString();
 

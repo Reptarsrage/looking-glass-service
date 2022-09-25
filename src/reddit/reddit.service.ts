@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import PageResponse from "../dto/pageResponse";
 import AuthResponse from "../dto/authResponse";
@@ -71,7 +71,7 @@ export async function getSearch(
   query: string,
   sort: string,
   filters: string[],
-  logger: FastifyLoggerInstance
+  logger: FastifyBaseLogger
 ): Promise<PageResponse> {
   const axiosConfig: AxiosRequestConfig = {
     headers: {
@@ -129,7 +129,7 @@ export async function getListing(
   after: string,
   sort: string,
   filters: string[],
-  logger: FastifyLoggerInstance
+  logger: FastifyBaseLogger
 ): Promise<PageResponse> {
   const axiosConfig: AxiosRequestConfig = {
     headers: {
@@ -179,7 +179,7 @@ export async function getListing(
 export async function filters(
   accessToken: string,
   filter: string,
-  logger: FastifyLoggerInstance
+  logger: FastifyBaseLogger
 ): Promise<FilterResponse[]> {
   switch (filter) {
     case "subreddit":
@@ -197,7 +197,7 @@ export async function filters(
 export async function filtersForItem(
   accessToken: string,
   itemId: string,
-  logger: FastifyLoggerInstance
+  logger: FastifyBaseLogger
 ): Promise<FilterResponse[]> {
   const article = itemId.replace(/^t[0-9]+_/, "");
   const path = `duplicates/${article}`;
@@ -245,11 +245,7 @@ export async function filtersForItem(
 }
 
 /** parses a listing type response form reddit */
-async function parseRedditListing(
-  listing: Listing,
-  count: number,
-  logger: FastifyLoggerInstance
-): Promise<PageResponse> {
+async function parseRedditListing(listing: Listing, count: number, logger: FastifyBaseLogger): Promise<PageResponse> {
   const { data, kind } = listing;
   if (kind !== "Listing") {
     logger.error(`Unknown reddit listing kind: ${kind}`);
@@ -268,7 +264,7 @@ async function parseRedditListing(
 }
 
 /** parses a post type response from reddit */
-async function parseRedditPost(post: Post | Subreddit, logger: FastifyLoggerInstance): Promise<ItemResponse | null> {
+async function parseRedditPost(post: Post | Subreddit, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
   const { data, kind } = post;
   if (kind !== "t3") {
     logger.warn(`Unknown reddit post kind: ${kind}`);

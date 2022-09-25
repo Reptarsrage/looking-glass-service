@@ -1,5 +1,5 @@
 import type { AxiosInstance } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import { PostData, Source } from "../../reddit/dto/redditResponse";
 import ItemResponse from "../../dto/itemResponse";
@@ -9,11 +9,7 @@ import MediaResponse from "../../dto/mediaResponse";
 export default class RedditHost implements Host {
   domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];
 
-  async resolve(
-    data: PostData,
-    httpService: AxiosInstance,
-    logger: FastifyLoggerInstance
-  ): Promise<ItemResponse | null> {
+  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
     const {
       preview,
       name,

@@ -1,5 +1,5 @@
 import type { AxiosInstance } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import { PostData } from "../../reddit/dto/redditResponse";
 import ItemResponse from "../../dto/itemResponse";
@@ -37,7 +37,7 @@ function hostLookup(domain: string): Host | null {
 async function resolve(
   data: PostData,
   httpService: AxiosInstance,
-  logger: FastifyLoggerInstance
+  logger: FastifyBaseLogger
 ): Promise<ItemResponse | null> {
   // lookup host using domain
   const { domain, url } = data;

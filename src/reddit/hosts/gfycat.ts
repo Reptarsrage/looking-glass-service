@@ -1,5 +1,5 @@
 import { AxiosError, AxiosInstance } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import { PostData } from "../../reddit/dto/redditResponse";
 import { GfyResponse } from "../../reddit/dto/gifycatResponse";
@@ -10,11 +10,7 @@ import { truthy } from "../../utils";
 export default class GfycatHost implements Host {
   domains = [/gfycat\.com/i];
 
-  async resolve(
-    data: PostData,
-    httpService: AxiosInstance,
-    logger: FastifyLoggerInstance
-  ): Promise<ItemResponse | null> {
+  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;
     const date = new Date(created_utc * 1000).toISOString();
 

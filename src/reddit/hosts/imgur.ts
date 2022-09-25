@@ -1,6 +1,6 @@
 import { extname } from "path";
 import { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import type { FastifyLoggerInstance } from "fastify";
+import type { FastifyBaseLogger } from "fastify";
 
 import { ImgurImageResponse } from "../../reddit/dto/imgurImageResponse";
 import { PostData } from "../../reddit/dto/redditResponse";
@@ -10,11 +10,7 @@ import { Host } from "../../reddit/dto/redditHost";
 export default class ImgurHost implements Host {
   domains: RegExp[] = [/imgur\.com/i];
 
-  async resolve(
-    data: PostData,
-    httpService: AxiosInstance,
-    logger: FastifyLoggerInstance
-  ): Promise<ItemResponse | null> {
+  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;
     const date = new Date(created_utc * 1000).toISOString();
 
