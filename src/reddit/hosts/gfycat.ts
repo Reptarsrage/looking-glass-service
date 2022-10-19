@@ -1,16 +1,15 @@
-import { AxiosError, AxiosInstance } from "axios";
-import type { FastifyBaseLogger } from "fastify";
+import { AxiosError } from "axios";
 
 import { PostData } from "../../reddit/dto/redditResponse";
 import { GfyResponse } from "../../reddit/dto/gifycatResponse";
 import ItemResponse from "../../dto/itemResponse";
-import { Host } from "../../reddit/dto/redditHost";
+import { HostBase } from "../../reddit/dto/redditHost";
 import { truthy } from "../../utils";
 
-export default class GfycatHost implements Host {
-  domains = [/gfycat\.com/i];
+export default class GfycatHost extends HostBase {
+  static domains = [/gfycat\.com/i];
 
-  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
+  parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;
     const date = new Date(created_utc * 1000).toISOString();
 
@@ -22,11 +21,11 @@ export default class GfycatHost implements Host {
     try {
       // hit up the Gfycat API
       // see https://developers.gfycat.com/api/#getting-gfycats
-      const response = await httpService.get<GfyResponse>(`https://api.gfycat.com/v1/gfycats/${gfyId}`);
+      const response = await this.httpService.get<GfyResponse>(`https://api.gfycat.com/v1/gfycats/${gfyId}`);
 
       // sanity check
       if (response.status !== 200 || !response.data.gfyItem) {
-        logger.error(response.data || {}, "Error communicating with Gfycat API");
+        this.logger.error(response.data || {}, "Error communicating with Gfycat API");
         return null;
       }
 
@@ -74,12 +73,12 @@ export default class GfycatHost implements Host {
       };
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        logger.error(error.response?.data ?? error.status, "Error communicating with Gfycat API");
+        this.logger.error(error.response?.data ?? error.status, "Error communicating with Gfycat API");
       } else {
-        logger.error(error, "Error communicating with Gfycat API");
+        this.logger.error(error, "Error communicating with Gfycat API");
       }
 
       return null;
     }
-  }
+  };
 }

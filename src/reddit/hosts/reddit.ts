@@ -1,15 +1,12 @@
-import type { AxiosInstance } from "axios";
-import type { FastifyBaseLogger } from "fastify";
-
 import { PostData, Source } from "../../reddit/dto/redditResponse";
 import ItemResponse from "../../dto/itemResponse";
-import { Host } from "../../reddit/dto/redditHost";
+import { HostBase } from "../../reddit/dto/redditHost";
 import MediaResponse from "../../dto/mediaResponse";
 
-export default class RedditHost implements Host {
-  domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];
+export default class RedditHost extends HostBase {
+  static domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];
 
-  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
+  parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const {
       preview,
       name,
@@ -119,7 +116,7 @@ export default class RedditHost implements Host {
       height = oembed.thumbnail_height;
       urls = [{ url: oembed.thumbnail_url, width, height }];
     } else {
-      logger.warn("Unable to parse reddit post using fallback logic");
+      this.logger.warn("Unable to parse reddit post using fallback logic");
       return null;
     }
 
@@ -163,5 +160,5 @@ export default class RedditHost implements Host {
     };
 
     return Promise.resolve(itemResponse);
-  }
+  };
 }

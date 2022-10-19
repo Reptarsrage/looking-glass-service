@@ -4,7 +4,7 @@ import type FilterResponse from "../dto/filterResponse";
 import ModuleControllerBase from "../base/base.controller";
 import type { GetPageParams, GetAuthorizeParams, GetRefreshParams, GetFiltersParams } from "../base/base.controller";
 import definition from "./reddit.definition";
-import * as redditService from "./reddit.service";
+import RedditService from "./reddit.service";
 import { truthy } from "../utils";
 
 export default class RedditController extends ModuleControllerBase {
@@ -20,26 +20,31 @@ export default class RedditController extends ModuleControllerBase {
     filters = (filters || []).filter(truthy);
     offset = Math.max(0, offset || 0);
 
+    const redditService = new RedditService(req);
+
     if (query) {
-      return redditService.getSearch(accessToken, offset, after, query, sort, filters, req.log);
+      return redditService.getSearch(accessToken, offset, after, query, sort, filters);
     }
 
-    return redditService.getListing(accessToken, offset, after, sort, filters, req.log);
+    return redditService.getListing(accessToken, offset, after, sort, filters);
   }
 
-  override async getAuthorize({ params }: GetAuthorizeParams): Promise<AuthResponse> {
+  override async getAuthorize({ params, req }: GetAuthorizeParams): Promise<AuthResponse> {
+    const redditService = new RedditService(req);
     return redditService.authorize(params.code);
   }
 
-  override async getRefresh({ refreshToken }: GetRefreshParams): Promise<AuthResponse> {
+  override async getRefresh({ refreshToken, req }: GetRefreshParams): Promise<AuthResponse> {
+    const redditService = new RedditService(req);
     return redditService.refresh(refreshToken);
   }
 
   override async getFilters({ accessToken, filter, itemId, req }: GetFiltersParams): Promise<FilterResponse[]> {
+    const redditService = new RedditService(req);
     if (itemId) {
-      return redditService.filtersForItem(accessToken, itemId, req.log);
+      return redditService.filtersForItem(accessToken, itemId);
     }
 
-    return redditService.filters(accessToken, filter, req.log);
+    return redditService.filters(accessToken, filter);
   }
 }

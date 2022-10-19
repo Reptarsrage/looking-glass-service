@@ -1,16 +1,15 @@
 import { extname } from "path";
-import { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-import type { FastifyBaseLogger } from "fastify";
+import { AxiosError, AxiosRequestConfig } from "axios";
 
 import { ImgurImageResponse } from "../../reddit/dto/imgurImageResponse";
 import { PostData } from "../../reddit/dto/redditResponse";
 import ItemResponse from "../../dto/itemResponse";
-import { Host } from "../../reddit/dto/redditHost";
+import { HostBase } from "../../reddit/dto/redditHost";
 
-export default class ImgurHost implements Host {
-  domains: RegExp[] = [/imgur\.com/i];
+export default class ImgurHost extends HostBase {
+  static domains: RegExp[] = [/imgur\.com/i];
 
-  async resolve(data: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
+  parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;
     const date = new Date(created_utc * 1000).toISOString();
 
@@ -33,14 +32,14 @@ export default class ImgurHost implements Host {
     // TODO: Support Imgur albums
     // see: https://apidocs.imgur.com/#5369b915-ad8b-47b1-b44b-8e2561e41cee
     if (type === "a") {
-      logger.warn(`Imgur albums not currently supported: ${url}`);
+      this.logger.warn(`Imgur albums not currently supported: ${url}`);
       return null;
     }
 
     // TODO: Support Imgur galleries
     // see: https://apidocs.imgur.com/#eff60e84-5781-4c12-926a-208dc4c7cc94
     if (type === "gallery") {
-      logger.warn(`Imgur galleries not currently supported: ${url}`);
+      this.logger.warn(`Imgur galleries not currently supported: ${url}`);
       return null;
     }
 
@@ -54,11 +53,11 @@ export default class ImgurHost implements Host {
     };
 
     try {
-      const response = await httpService.get<ImgurImageResponse>(imgurApiUrl, axiosConfig);
+      const response = await this.httpService.get<ImgurImageResponse>(imgurApiUrl, axiosConfig);
 
       // sanity check
       if (response.status !== 200 || !response.data.success || response.data.status !== 200) {
-        logger.error(response.data || {}, "Error communicating with Imgur API");
+        this.logger.error(response.data || {}, "Error communicating with Imgur API");
         return null;
       }
 
@@ -105,12 +104,12 @@ export default class ImgurHost implements Host {
       };
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        logger.error(error.response?.data ?? error.status, "Error communicating with Imgur API");
+        this.logger.error(error.response?.data ?? error.status, "Error communicating with Imgur API");
       } else {
-        logger.error(error, "Error communicating with Imgur API");
+        this.logger.error(error, "Error communicating with Imgur API");
       }
 
       return null;
     }
-  }
+  };
 }

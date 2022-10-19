@@ -1,15 +1,14 @@
-import { AxiosInstance, AxiosError } from "axios";
-import type { FastifyBaseLogger } from "fastify";
+import { AxiosError } from "axios";
 
 import type { GiphyResponse } from "../../reddit/dto/giphyResponse";
 import type { PostData } from "../../reddit/dto/redditResponse";
 import type ItemResponse from "../../dto/itemResponse";
-import type { Host } from "../../reddit/dto/redditHost";
+import { HostBase } from "../../reddit/dto/redditHost";
 
-export default class GiphyHost implements Host {
-  domains: RegExp[] = [/giphy\.com/i];
+export default class GiphyHost extends HostBase {
+  public static domains: RegExp[] = [/giphy\.com/i];
 
-  async resolve(post: PostData, httpService: AxiosInstance, logger: FastifyBaseLogger): Promise<ItemResponse | null> {
+  public parsePost = async (post: PostData): Promise<ItemResponse | null> => {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = post;
     const date = new Date(created_utc * 1000).toISOString();
 
@@ -27,11 +26,11 @@ export default class GiphyHost implements Host {
       params.set("api_key", process.env.GIPHY_API_KEY ?? "");
 
       const apiUrl = `https://api.giphy.com/v1/gifs/${gihpyId}?${params.toString()}`;
-      const response = await httpService.get<GiphyResponse>(apiUrl);
+      const response = await this.httpService.get<GiphyResponse>(apiUrl);
 
       // sanity check
       if (response.status !== 200 || response.data.meta.status !== 200) {
-        logger.error(response.data || {}, "Error communicating with GIPHY API");
+        this.logger.error(response.data || {}, "Error communicating with GIPHY API");
         return null;
       }
 
@@ -45,7 +44,7 @@ export default class GiphyHost implements Host {
 
       // sanity check
       if (stills.length === 0 || mp4s.length === 0) {
-        logger.error(response.data, "GIPHY API contained no content");
+        this.logger.error(response.data, "GIPHY API contained no content");
         return null;
       }
 
@@ -100,12 +99,12 @@ export default class GiphyHost implements Host {
       };
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
-        logger.error(error.response?.data ?? error.status, "Error communicating with GIPHY API");
+        this.logger.error(error.response?.data ?? error.status, "Error communicating with GIPHY API");
       } else {
-        logger.error(error, "Error communicating with GIPHY API");
+        this.logger.error(error, "Error communicating with GIPHY API");
       }
 
       return null;
     }
-  }
+  };
 }
