@@ -101,7 +101,7 @@ class RedditService {
     const params = new URLSearchParams();
     params.set("after", after);
     params.set("count", count.toString());
-    params.set("1", query);
+    params.set("q", query);
     params.set("limit", "25");
     params.set("sort", "relevance");
     params.set("t", "all");
