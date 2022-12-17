@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
+    "resolveJsonModule": true,
     "outDir": "dist",
     "sourceMap": true,
     "typeRoots": ["src/types", "node_modules/@types"]
