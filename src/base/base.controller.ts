@@ -85,7 +85,7 @@ export default abstract class ModuleControllerBase {
    * @param headers - Headers to be forwarded to URL
    * @param res - Fastify reply
    */
-  protected proxyHelper(url: string, headers: AxiosRequestHeaders, res: FastifyReply): void {
+  protected proxyHelper(url: string, headers: Record<string, string>, res: FastifyReply): void {
     stream(url, headers, res);
   }
 }

@@ -1,10 +1,10 @@
-import axios, { AxiosRequestHeaders } from "axios";
+import axios from "axios";
 import type { FastifyReply } from "fastify";
 import type { Readable } from "node:stream";
 
 export default async function stream(
   url: string,
-  headers: AxiosRequestHeaders,
+  headers: Record<string, string>,
   reply: FastifyReply,
   tries = 3
 ): Promise<void> {
