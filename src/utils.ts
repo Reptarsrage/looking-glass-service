@@ -23,3 +23,13 @@ export function clampImageDimensions(originalWidth: number, originalHeight: numb
 
   return [clamp_width, clamp_height];
 }
+
+// converts from base64 encoded string
+export function toBase64(str: string): string {
+  return Buffer.from(str, "utf8").toString("base64");
+}
+
+// converts to base64 encoded string
+export function fromBase64(str: string): string {
+  return Buffer.from(str, "base64").toString("utf8");
+}
