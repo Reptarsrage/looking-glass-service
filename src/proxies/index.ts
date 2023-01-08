@@ -10,7 +10,7 @@ import proxyscape from "./proxyscape";
 import sslproxies from "./sslproxies";
 import spysone from "./spysone";
 import freeproxylists from "./freeproxylists";
-import userAgents from "./userAgents";
+import { getRandomUserAgent } from "./userAgents";
 
 const BATCH_SIZE = 20;
 
@@ -94,7 +94,7 @@ export async function streamWithProxy(config: AxiosRequestConfig, reply: Fastify
     const defaultConfig: AxiosRequestConfig = {
       timeout: 10000,
       headers: {
-        "user-agent": userAgents[Math.floor(Math.random() * (userAgents.length - 1))].useragent,
+        "user-agent": getRandomUserAgent(),
       },
     };
 
@@ -134,7 +134,7 @@ export async function fetchWithProxy<T>(config: AxiosRequestConfig): Promise<T> 
   const defaultConfig: AxiosRequestConfig = {
     timeout: 10000,
     headers: {
-      "user-agent": userAgents[Math.floor(Math.random() * (userAgents.length - 1))].useragent,
+      "user-agent": getRandomUserAgent(),
     },
   };
 

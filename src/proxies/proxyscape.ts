@@ -1,6 +1,6 @@
 import type { AxiosProxyConfig } from "axios";
 import axios from "axios";
-import userAgents from "./userAgents";
+import { getRandomUserAgent } from "./userAgents";
 
 async function fetchProxies(): Promise<AxiosProxyConfig[]> {
   try {
@@ -10,7 +10,7 @@ async function fetchProxies(): Promise<AxiosProxyConfig[]> {
       headers: {
         "accept-encoding": "text/plain",
         referer: "https://api.proxyscrape.com/",
-        "user-agent": userAgents[Math.floor(Math.random() * (userAgents.length - 1))].useragent,
+        "user-agent": getRandomUserAgent(),
       },
     });
 

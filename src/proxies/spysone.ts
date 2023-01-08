@@ -1,7 +1,7 @@
 import type { AxiosProxyConfig } from "axios";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import userAgents from "./userAgents";
+import { getRandomUserAgent } from "./userAgents";
 
 async function fetchProxies(): Promise<AxiosProxyConfig[]> {
   try {
@@ -9,7 +9,7 @@ async function fetchProxies(): Promise<AxiosProxyConfig[]> {
       headers: {
         "accept-encoding": "text/html",
         referer: "https://spys.one/",
-        "user-agent": userAgents[Math.floor(Math.random() * (userAgents.length - 1))].useragent,
+        "user-agent": getRandomUserAgent(),
       },
     });
     const $ = cheerio.load(response.data);

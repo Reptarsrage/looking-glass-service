@@ -48,8 +48,10 @@ export default class RedditController extends ModuleControllerBase {
     return pixivService.filters(accessToken, filter);
   }
 
-  override getProxy({ uri, res }: GetProxyParams): void {
-    const headers = {
+  override getProxy({ uri, req, res }: GetProxyParams): void {
+    const headers: Record<string, string | undefined> = {
+      ...(req.headers as Record<string, string>),
+      host: undefined,
       referer: "http://www.pixiv.net/",
     };
 

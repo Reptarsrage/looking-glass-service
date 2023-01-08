@@ -4,7 +4,7 @@ import type { Readable } from "node:stream";
 
 export default async function stream(
   url: string,
-  headers: Record<string, string>,
+  headers: Record<string, string | undefined>,
   reply: FastifyReply,
   tries = 3
 ): Promise<void> {
@@ -15,7 +15,12 @@ export default async function stream(
     });
 
     if (response.status >= 200 && response.status < 400) {
-      response.headers["cache-control"] = "max-age=3600, must-revalidate";
+      response.headers["cache-control"] = "public, max-age=3600";
+      delete response.headers["etag"];
+      delete response.headers["age"];
+      delete response.headers["date"];
+      delete response.headers["expires"];
+      delete response.headers["last-modified"];
     }
 
     reply.raw.writeHead(response.status, response.headers);

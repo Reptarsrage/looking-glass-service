@@ -1,7 +1,7 @@
 import type { AxiosProxyConfig } from "axios";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import userAgents from "./userAgents";
+import { getRandomUserAgent } from "./userAgents";
 
 // NOTE: this one has reCAPTCHA and will stop working
 async function fetchProxies(): Promise<AxiosProxyConfig[]> {
@@ -12,7 +12,7 @@ async function fetchProxies(): Promise<AxiosProxyConfig[]> {
         headers: {
           "accept-encoding": "text/html",
           referer: "https://www.freeproxylists.net/",
-          "user-agent": userAgents[Math.floor(Math.random() * (userAgents.length - 1))].useragent,
+          "user-agent": getRandomUserAgent(),
         },
       }
     );

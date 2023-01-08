@@ -295,4 +295,6 @@ const agents = [
   },
 ];
 
-export default agents;
+export function getRandomUserAgent() {
+  return agents[Math.floor(Math.random() * (agents.length - 1))].useragent;
+}
