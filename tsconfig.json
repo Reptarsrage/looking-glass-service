@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "outDir": "dist",
     "sourceMap": true,
+    "sourceRoot": "C:\\Users\\jrobb\\source\\personal\\looking-glass-service\\src",
     "typeRoots": ["src/types", "node_modules/@types"]
   },
   "include": ["src"],
