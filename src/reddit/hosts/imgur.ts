@@ -7,7 +7,7 @@ import ItemResponse from "../../dto/itemResponse";
 import { HostBase } from "../../reddit/dto/redditHost";
 
 export default class ImgurHost extends HostBase {
-  static domains: RegExp[] = [/imgur\.com/i];
+  public static domains: RegExp[] = [/imgur\.com/i];
 
   parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;

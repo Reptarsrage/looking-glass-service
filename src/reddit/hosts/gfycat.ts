@@ -7,7 +7,7 @@ import { HostBase } from "../../reddit/dto/redditHost";
 import { truthy } from "../../utils";
 
 export default class GfycatHost extends HostBase {
-  static domains = [/gfycat\.com/i];
+  public static domains = [/gfycat\.com/i];
 
   parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const { name, title, author, subreddit, subreddit_name_prefixed, created_utc, url, selftext } = data;

@@ -8,12 +8,11 @@ import ImgurHost from "./imgur";
 import RedditHost from "./reddit";
 
 // import additional hosts here
-import RedgifsHost from "./redgifs";
 
 class HostFactory {
   private req: FastifyRequest;
   private httpService: AxiosInstance;
-  private hostTypes: Array<HostBasedDerived> = [GiphyHost, GfycatHost, ImgurHost, RedditHost, RedgifsHost];
+  private hostTypes: Array<HostBasedDerived> = [GiphyHost, GfycatHost, ImgurHost, RedditHost];
 
   constructor(req: FastifyRequest, httpService: AxiosInstance) {
     this.req = req;

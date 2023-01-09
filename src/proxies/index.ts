@@ -91,22 +91,22 @@ async function fetchUsingRandomProxy<T>(config: AxiosRequestConfig): Promise<T> 
 
 export async function streamWithProxy(config: AxiosRequestConfig, reply: FastifyReply, tries = 3): Promise<void> {
   try {
-    const defaultConfig: AxiosRequestConfig = {
+    const defaultConfig = {
       timeout: 10000,
       headers: {
         "user-agent": getRandomUserAgent(),
       },
-    };
+    } satisfies AxiosRequestConfig;
 
-    const useConfig: AxiosRequestConfig = {
+    const useConfig = {
       ...defaultConfig,
       ...config,
       headers: {
         ...defaultConfig.headers,
-        ...config.headers,
+        ...(config.headers as Record<string, string>),
       },
       responseType: "stream",
-    };
+    } satisfies AxiosRequestConfig;
 
     const response = await axios.request<Readable>(useConfig);
     if (response.status >= 200 && response.status < 400) {
@@ -131,21 +131,21 @@ export async function streamWithProxy(config: AxiosRequestConfig, reply: Fastify
 }
 
 export async function fetchWithProxy<T>(config: AxiosRequestConfig): Promise<T> {
-  const defaultConfig: AxiosRequestConfig = {
+  const defaultConfig = {
     timeout: 10000,
     headers: {
       "user-agent": getRandomUserAgent(),
     },
-  };
+  } satisfies AxiosRequestConfig;
 
-  const useConfig: AxiosRequestConfig = {
+  const useConfig = {
     ...defaultConfig,
     ...config,
     headers: {
       ...defaultConfig.headers,
-      ...config.headers,
+      ...(config.headers as Record<string, string>),
     },
-  };
+  } satisfies AxiosRequestConfig;
 
   return await fetchUsingRandomProxy<T>(useConfig);
 }

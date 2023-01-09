@@ -4,7 +4,7 @@ import { HostBase } from "../../reddit/dto/redditHost";
 import MediaResponse from "../../dto/mediaResponse";
 
 export default class RedditHost extends HostBase {
-  static domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];
+  public static domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];
 
   parsePost = async (data: PostData): Promise<ItemResponse | null> => {
     const {
