@@ -138,14 +138,14 @@ export async function getContentPage(
   ]);
 
   let url;
-  const sortVal = sort ?? "following";
+  const sortVal = sort || "following";
   const [feed, contentType] = sortVal.split("-");
   if (feed === "recommended") {
     url = `/v1/${contentType}/recommended`;
   } else if (feed === "following") {
     url = "/v2/illust/follow";
   } else {
-    throw new Error("Unknown sort");
+    throw new Error(`Unknown sort "${sort}"`);
   }
 
   const { data } = await httpService.get<PixivIllustSearch>(`${url}?${params.toString()}`, config);
