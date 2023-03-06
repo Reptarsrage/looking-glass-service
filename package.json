@@ -24,11 +24,12 @@
   "homepage": "https://github.com/reptarsrage/looking-glass-service#readme",
   "scripts": {
     "format": "prettier --write src",
+    "check": "tsc --noEmit --pretty",
     "lint": "eslint src",
     "build": "tsc --project  .",
     "start": "node ./dist/server.js",
     "dev": "ts-node --esm ./src/server.ts",
-    "test": "tap",
+    "test": "jest",
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
@@ -56,19 +57,20 @@
   "devDependencies": {
     "@types/ffprobe": "^1.1.3",
     "@types/ffprobe-static": "^2.0.1",
+    "@types/jest": "^29.4.0",
     "@types/node": "^18.14.6",
-    "@types/tap": "^15.0.7",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.4.3",
     "nano-staged": "^0.8.0",
     "pino-pretty": "^9.4.0",
     "prettier": "^2.8.2",
     "simple-git-hooks": "^2.8.1",
-    "tap": "^16.3.2",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },

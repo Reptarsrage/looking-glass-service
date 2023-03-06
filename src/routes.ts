@@ -18,7 +18,6 @@ import type LoginRequest from "./dto/loginRequest.js";
 import type AuthResponse from "./dto/authResponse.js";
 import type FilterResponse from "./dto/filterResponse.js";
 import type PageRequest from "./dto/pageRequest.js";
-
 // Import any additional controllers here
 
 // Add all modules to array

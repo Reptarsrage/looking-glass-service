@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import fastifyEnv from "@fastify/env";
 import fastifyStatic from "@fastify/static";
 import fastifyCors from "@fastify/cors";
+import { isAxiosError } from "axios";
 
 import schema from "./config.js";
 import { build } from "./app.js";
@@ -31,6 +32,18 @@ server.register(fastifyCors);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 server.register(fastifyStatic, { root: path.resolve(__dirname, "..", "public") });
+
+// Handle errors
+server.setErrorHandler(function (error, request, reply) {
+  if (isAxiosError(error) && error.response) {
+    this.log.warn({ data: error.response.data }, `Request failed with status code ${error.response.status}`);
+    reply.status(error.response.status).send();
+    return;
+  }
+
+  this.log.error(error);
+  reply.status(500).send();
+});
 
 const port = parseInt(process.env.PORT ?? "3001", 10);
 const host = process.env.HOST ?? "127.0.0.1";

@@ -11,7 +11,12 @@ import type MediaResponse from "../dto/mediaResponse.js";
 
 import challenge from "./pixiv.verifier.js";
 import httpService from "./pixiv.http.js";
-import type { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse.js";
+import type {
+  PixivIllust,
+  PixivIllustDetail,
+  PixivIllustSearch,
+  PixivTagsResponse,
+} from "./dto/illustSearchResponse.js";
 import type { PixivAuthResponse } from "./dto/pixivAuthResponse.js";
 
 export async function refresh(refreshToken: string): Promise<AuthResponse> {

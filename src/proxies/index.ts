@@ -72,7 +72,7 @@ async function fetchUsingRandomProxy<T>(config: AxiosRequestConfig): Promise<T> 
     });
 
     // Check response
-    invariant(response.status === 200);
+    invariant(response.status === 200, `Failed to fetch page ${config.url} ${response.status} ${response.statusText}`);
     return response.data;
   } catch (e) {
     if (axios.isAxiosError(e)) {

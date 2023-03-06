@@ -1,4 +1,3 @@
-
 import type { FastifyRequest } from "fastify";
 import type { AxiosInstance } from "axios";
 
@@ -8,7 +7,6 @@ import GiphyHost from "./giphy.js";
 import GfycatHost from "./gfycat.js";
 import ImgurHost from "./imgur.js";
 import RedditHost from "./reddit.js";
-
 // import additional hosts here
 
 class HostFactory {

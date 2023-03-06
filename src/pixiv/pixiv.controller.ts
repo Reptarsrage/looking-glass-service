@@ -3,7 +3,8 @@ import { truthy } from "../utils.js";
 import type PageResponse from "../dto/pageResponse.js";
 import type FilterResponse from "../dto/filterResponse.js";
 import type AuthResponse from "../dto/authResponse.js";
-import type { GetAuthorizeParams ,
+import type {
+  GetAuthorizeParams,
   GetFiltersParams,
   GetPageParams,
   GetProxyParams,
