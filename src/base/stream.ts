@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { FastifyReply } from "fastify";
+import { OutgoingHttpHeaders } from "http";
 import type { Readable } from "node:stream";
 
 export default async function stream(
@@ -23,7 +24,7 @@ export default async function stream(
       delete response.headers["last-modified"];
     }
 
-    reply.raw.writeHead(response.status, response.headers);
+    reply.raw.writeHead(response.status, response.headers as OutgoingHttpHeaders);
     response.data.pipe(reply.raw);
   } catch (error: unknown) {
     if (tries >= 0) {
