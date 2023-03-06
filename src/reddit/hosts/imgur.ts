@@ -1,10 +1,10 @@
 import { extname } from "path";
 import { AxiosError, AxiosRequestConfig } from "axios";
 
-import { ImgurImageResponse } from "../../reddit/dto/imgurImageResponse";
-import { PostData } from "../../reddit/dto/redditResponse";
-import ItemResponse from "../../dto/itemResponse";
-import { HostBase } from "../../reddit/dto/redditHost";
+import { ImgurImageResponse } from "../../reddit/dto/imgurImageResponse.js";
+import { PostData } from "../../reddit/dto/redditResponse.js";
+import ItemResponse from "../../dto/itemResponse.js";
+import { HostBase } from "../../reddit/dto/redditHost.js";
 
 export default class ImgurHost extends HostBase {
   public static domains: RegExp[] = [/imgur\.com/i];

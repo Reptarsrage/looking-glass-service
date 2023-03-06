@@ -1,18 +1,18 @@
 import type { FastifyInstance, FastifyRequest } from "fastify";
 import { FastifyReply } from "fastify";
-import S from "fluent-json-schema";
+import { S } from "fluent-json-schema";
 
-import ModuleControllerBase from "./base/base.controller";
-import ModuleResponse, { ModuleResponseSchema } from "./dto/moduleResponse";
-import PageResponse, { PageResponseSchema } from "./dto/pageResponse";
-import AuthorizeRequest, { AuthorizeRequestSchema } from "./dto/authorizeRequest";
-import LoginRequest, { LoginRequestSchema } from "./dto/loginRequest";
-import AuthResponse, { AuthResponseSchema } from "./dto/authResponse";
-import FilterResponse, { FilterResponseSchema } from "./dto/filterResponse";
-import PageRequest, { PageRequestSchema } from "./dto/pageRequest";
+import ModuleControllerBase from "./base/base.controller.js";
+import ModuleResponse, { ModuleResponseSchema } from "./dto/moduleResponse.js";
+import PageResponse, { PageResponseSchema } from "./dto/pageResponse.js";
+import AuthorizeRequest, { AuthorizeRequestSchema } from "./dto/authorizeRequest.js";
+import LoginRequest, { LoginRequestSchema } from "./dto/loginRequest.js";
+import AuthResponse, { AuthResponseSchema } from "./dto/authResponse.js";
+import FilterResponse, { FilterResponseSchema } from "./dto/filterResponse.js";
+import PageRequest, { PageRequestSchema } from "./dto/pageRequest.js";
 
-import RedditController from "./reddit/reddit.controller";
-import PixivController from "./pixiv/pixiv.controller";
+import RedditController from "./reddit/reddit.controller.js";
+import PixivController from "./pixiv/pixiv.controller.js";
 
 // Import any additional controllers here
 

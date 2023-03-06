@@ -1,9 +1,9 @@
-import S from "fluent-json-schema";
+import { S } from "fluent-json-schema";
 
-import AuthorResponse, { AuthorResponseSchema } from "./authorResponse";
-import FilterResponse, { FilterResponseSchema } from "./filterResponse";
-import MediaResponse, { MediaResponseSchema } from "./mediaResponse";
-import SourceResponse, { SourceResponseSchema } from "./sourceResponse";
+import AuthorResponse, { AuthorResponseSchema } from "./authorResponse.js";
+import FilterResponse, { FilterResponseSchema } from "./filterResponse.js";
+import MediaResponse, { MediaResponseSchema } from "./mediaResponse.js";
+import SourceResponse, { SourceResponseSchema } from "./sourceResponse.js";
 
 export default interface ItemResponse {
   id: string;

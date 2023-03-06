@@ -1,7 +1,7 @@
-import { PostData, Source } from "../../reddit/dto/redditResponse";
-import ItemResponse from "../../dto/itemResponse";
-import { HostBase } from "../../reddit/dto/redditHost";
-import MediaResponse from "../../dto/mediaResponse";
+import { PostData, Source } from "../../reddit/dto/redditResponse.js";
+import ItemResponse from "../../dto/itemResponse.js";
+import { HostBase } from "../../reddit/dto/redditHost.js";
+import MediaResponse from "../../dto/mediaResponse.js";
 
 export default class RedditHost extends HostBase {
   public static domains: RegExp[] = [/\.redd\.it/i, /reddit\.com/i];

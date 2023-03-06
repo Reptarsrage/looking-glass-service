@@ -1,16 +1,16 @@
-import type PageResponse from "../dto/pageResponse";
-import type FilterResponse from "../dto/filterResponse";
+import type PageResponse from "../dto/pageResponse.js";
+import type FilterResponse from "../dto/filterResponse.js";
 import ModuleControllerBase, {
   GetAuthorizeParams,
   GetFiltersParams,
   GetProxyParams,
   GetRefreshParams,
-} from "../base/base.controller";
-import type AuthResponse from "../dto/authResponse";
-import type { GetPageParams } from "../base/base.controller";
-import definition from "./pixiv.definition";
-import * as pixivService from "./pixiv.service";
-import { truthy } from "../utils";
+} from "../base/base.controller.js";
+import type AuthResponse from "../dto/authResponse.js";
+import type { GetPageParams } from "../base/base.controller.js";
+import definition from "./pixiv.definition.js";
+import * as pixivService from "./pixiv.service.js";
+import { truthy } from "../utils.js";
 
 export default class RedditController extends ModuleControllerBase {
   public static definition = definition;

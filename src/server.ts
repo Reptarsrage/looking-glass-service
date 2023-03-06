@@ -1,11 +1,12 @@
 import "dotenv/config";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import fastifyEnv from "@fastify/env";
 import fastifyStatic from "@fastify/static";
 import fastifyCors from "@fastify/cors";
 
-import schema from "./config";
-import { build } from "./app";
+import schema from "./config.js";
+import { build } from "./app.js";
 
 const server = build({
   logger: {
@@ -26,7 +27,9 @@ server.register(fastifyEnv, {
 server.register(fastifyCors);
 
 // Plugin for serving static files as fast as possible
-server.register(fastifyStatic, { root: path.join(__dirname, "..", "public") });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+server.register(fastifyStatic, { root: path.resolve(__dirname, "..", "public") });
 
 const port = parseInt(process.env.PORT ?? "3001", 10);
 const host = process.env.HOST ?? "127.0.0.1";

@@ -1,6 +1,6 @@
-import AuthType from "../dto/authType";
-import Module from "../dto/moduleResponse";
-import challenge from "./pixiv.verifier";
+import AuthType from "../dto/authType.js";
+import Module from "../dto/moduleResponse.js";
+import challenge from "./pixiv.verifier.js";
 
 const oAuthParams = new URLSearchParams([
   ["code_challenge_method", "S256"],

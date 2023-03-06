@@ -1,8 +1,8 @@
 import tap from "tap";
-import S from "fluent-json-schema";
+import { S } from "fluent-json-schema";
 import Ajv from "ajv";
-import { build } from "./app";
-import { ModuleResponseSchema } from "./dto/moduleResponse";
+import { build } from "./app.js";
+import { ModuleResponseSchema } from "./dto/moduleResponse.js";
 
 tap.test("GET `/` route", (t) => {
   t.plan(4);
@@ -20,7 +20,7 @@ tap.test("GET `/` route", (t) => {
       t.equal(response.statusCode, 200);
       t.equal(response.headers["content-type"], "application/json; charset=utf-8");
 
-      const ajv = new Ajv({ allErrors: true });
+      const ajv = new Ajv.default({ allErrors: true });
       const schema = S.array().items(ModuleResponseSchema);
       const validate = ajv.compile(schema.valueOf());
       t.ok(validate(response.json()));

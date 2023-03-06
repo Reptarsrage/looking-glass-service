@@ -1,8 +1,8 @@
-import S from "fluent-json-schema";
+import { S } from "fluent-json-schema";
 
-import AuthType, { AuthTypeSchema } from "./authType";
-import FilterSectionResponse, { FilterSectionResponseSchema } from "./filterSectionResponse";
-import SortResponse, { SortResponseSchema } from "./sortResponse";
+import AuthType, { AuthTypeSchema } from "./authType.js";
+import FilterSectionResponse, { FilterSectionResponseSchema } from "./filterSectionResponse.js";
+import SortResponse, { SortResponseSchema } from "./sortResponse.js";
 
 export default interface ModuleResponse {
   id: string;

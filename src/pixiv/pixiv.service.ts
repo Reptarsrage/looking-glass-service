@@ -2,16 +2,16 @@
 import { AxiosRequestConfig } from "axios";
 import * as cheerio from "cheerio";
 
-import PageResponse from "../dto/pageResponse";
-import AuthResponse from "../dto/authResponse";
-import FilterResponse from "../dto/filterResponse";
-import ItemResponse from "../dto/itemResponse";
-import MediaResponse from "../dto/mediaResponse";
-import httpService from "./pixiv.http";
-import { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse";
-import challenge from "./pixiv.verifier";
-import type { PixivAuthResponse } from "./dto/pixivAuthResponse";
-import { clampImageDimensions, nonNullable, truthy } from "../utils";
+import PageResponse from "../dto/pageResponse.js";
+import AuthResponse from "../dto/authResponse.js";
+import FilterResponse from "../dto/filterResponse.js";
+import ItemResponse from "../dto/itemResponse.js";
+import MediaResponse from "../dto/mediaResponse.js";
+import httpService from "./pixiv.http.js";
+import { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse.js";
+import challenge from "./pixiv.verifier.js";
+import type { PixivAuthResponse } from "./dto/pixivAuthResponse.js";
+import { clampImageDimensions, nonNullable, truthy } from "../utils.js";
 
 export async function refresh(refreshToken: string): Promise<AuthResponse> {
   const authTokenUrl = "https://oauth.secure.pixiv.net/auth/token";

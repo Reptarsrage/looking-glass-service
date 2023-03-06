@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "This service serves up content from across the web.",
   "license": "Unlicense",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reptarsrage/looking-glass-service.git"
@@ -24,10 +25,10 @@
   "scripts": {
     "format": "prettier --write src",
     "lint": "tsc --noEmit --pretty && eslint --ext .js,.ts src",
-    "build": "tsc -p tsconfig.json",
-    "start": "node --enable-source-maps dist/server.js ",
-    "dev": "concurrently \"tsc -p tsconfig.json --watch\" \"nodemon -q dist/server.js\"",
-    "test": "tap --ts",
+    "build": "tsc --project  .",
+    "start": "node ./dist/server.js",
+    "dev": "ts-node --esm ./src/server.ts",
+    "test": "tap",
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
@@ -78,5 +79,14 @@
   "nano-staged": {
     "src/**/*.ts": "eslint --fix",
     "src/**": "prettier --write"
+  },
+  "tap": {
+    "coverage": false,
+    "node-arg": [
+      "--no-warnings",
+      "--loader",
+      "ts-node/esm"
+    ],
+    "ts": false
   }
 }

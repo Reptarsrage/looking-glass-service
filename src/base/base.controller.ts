@@ -2,15 +2,15 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import type { AxiosRequestHeaders } from "axios";
 
-import PageResponse from "../dto/pageResponse";
-import AuthResponse from "../dto/authResponse";
-import FilterResponse from "../dto/filterResponse";
-import LoginRequest from "../dto/loginRequest";
-import PageRequest from "../dto/pageRequest";
-import AuthorizeRequest from "../dto/authorizeRequest";
-import ModuleResponse from "../dto/moduleResponse";
-import stream from "./stream";
-import type { Config } from "../config";
+import PageResponse from "../dto/pageResponse.js";
+import AuthResponse from "../dto/authResponse.js";
+import FilterResponse from "../dto/filterResponse.js";
+import LoginRequest from "../dto/loginRequest.js";
+import PageRequest from "../dto/pageRequest.js";
+import AuthorizeRequest from "../dto/authorizeRequest.js";
+import ModuleResponse from "../dto/moduleResponse.js";
+import stream from "./stream.js";
+import type { Config } from "../config.js";
 
 class NotImplementedException extends Error {
   name = "NotImplementedError";

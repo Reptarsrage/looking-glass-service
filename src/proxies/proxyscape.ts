@@ -1,6 +1,6 @@
 import type { AxiosProxyConfig } from "axios";
 import axios from "axios";
-import { getRandomUserAgent } from "./userAgents";
+import { getRandomUserAgent } from "./userAgents.js";
 
 async function fetchProxies(): Promise<AxiosProxyConfig[]> {
   try {

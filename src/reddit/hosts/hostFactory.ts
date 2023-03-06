@@ -1,11 +1,11 @@
 import type { AxiosInstance } from "axios";
 import type { FastifyRequest } from "fastify";
 
-import { HostBasedDerived } from "../dto/redditHost";
-import GiphyHost from "./giphy";
-import GfycatHost from "./gfycat";
-import ImgurHost from "./imgur";
-import RedditHost from "./reddit";
+import { HostBasedDerived } from "../dto/redditHost.js";
+import GiphyHost from "./giphy.js";
+import GfycatHost from "./gfycat.js";
+import ImgurHost from "./imgur.js";
+import RedditHost from "./reddit.js";
 
 // import additional hosts here
 

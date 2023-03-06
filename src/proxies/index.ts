@@ -5,12 +5,13 @@ import type { Readable } from "node:stream";
 import { setMaxListeners } from "node:events";
 import type { FastifyReply } from "fastify";
 
-import hidemyname from "./hidemyname";
-import proxyscape from "./proxyscape";
-import sslproxies from "./sslproxies";
-import spysone from "./spysone";
-import freeproxylists from "./freeproxylists";
-import { getRandomUserAgent } from "./userAgents";
+import hidemyname from "./hidemyname.js";
+import proxyscape from "./proxyscape.js";
+import sslproxies from "./sslproxies.js";
+import spysone from "./spysone.js";
+import freeproxylists from "./freeproxylists.js";
+import { getRandomUserAgent } from "./userAgents.js";
+import { OutgoingHttpHeaders } from "node:http";
 
 const BATCH_SIZE = 20;
 
@@ -109,16 +110,25 @@ export async function streamWithProxy(config: AxiosRequestConfig, reply: Fastify
     } satisfies AxiosRequestConfig;
 
     const response = await axios.request<Readable>(useConfig);
+    const headers = Object.keys(response.headers).reduce((acc, header) => {
+      const value = response.headers[header];
+      if (value) {
+        acc[header] = value.toString();
+      }
+
+      return acc;
+    }, {} as Record<string, string>);
+
     if (response.status >= 200 && response.status < 400) {
-      response.headers["cache-control"] = "max-age=31536000, must-revalidate";
-      delete response.headers["etag"];
-      delete response.headers["age"];
-      delete response.headers["date"];
-      delete response.headers["expires"];
-      delete response.headers["last-modified"];
+      headers["cache-control"] = "max-age=31536000, must-revalidate";
+      delete headers["etag"];
+      delete headers["age"];
+      delete headers["date"];
+      delete headers["expires"];
+      delete headers["last-modified"];
     }
 
-    reply.raw.writeHead(response.status, response.headers);
+    reply.raw.writeHead(response.status, headers);
     response.data.pipe(reply.raw);
   } catch (error: unknown) {
     if (tries >= 0) {

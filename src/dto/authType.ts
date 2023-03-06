@@ -1,4 +1,4 @@
-import S from "fluent-json-schema";
+import { S } from "fluent-json-schema";
 
 /** authentication method used by the module */
 enum AuthType {

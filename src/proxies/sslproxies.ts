@@ -1,7 +1,7 @@
 import type { AxiosProxyConfig } from "axios";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { getRandomUserAgent } from "./userAgents";
+import { getRandomUserAgent } from "./userAgents.js";
 
 async function fetchProxies(): Promise<AxiosProxyConfig[]> {
   try {
