@@ -1,14 +1,15 @@
 import type { AxiosRequestConfig } from "axios";
 import type { FastifyBaseLogger, FastifyRequest } from "fastify";
 
-import PageResponse from "../dto/pageResponse.js";
-import AuthResponse from "../dto/authResponse.js";
-import FilterResponse from "../dto/filterResponse.js";
-import ItemResponse from "../dto/itemResponse.js";
-import { Listing, Post, AuthToken, MultiReddit, Subreddit } from "./dto/redditResponse.js";
-import HostFactory from "./hosts/hostFactory.js";
-import httpService from "./reddit.http.js";
 import { nonNullable } from "../utils.js";
+import type PageResponse from "../dto/pageResponse.js";
+import type AuthResponse from "../dto/authResponse.js";
+import type FilterResponse from "../dto/filterResponse.js";
+import type ItemResponse from "../dto/itemResponse.js";
+
+import httpService from "./reddit.http.js";
+import HostFactory from "./hosts/hostFactory.js";
+import type { AuthToken, Listing, MultiReddit, Post, Subreddit } from "./dto/redditResponse.js";
 
 class RedditService {
   logger: FastifyBaseLogger;

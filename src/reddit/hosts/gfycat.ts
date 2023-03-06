@@ -1,10 +1,10 @@
 import { AxiosError } from "axios";
 
-import { PostData } from "../../reddit/dto/redditResponse.js";
-import { GfyResponse } from "../../reddit/dto/gifycatResponse.js";
-import ItemResponse from "../../dto/itemResponse.js";
 import { HostBase } from "../../reddit/dto/redditHost.js";
 import { truthy } from "../../utils.js";
+import type { PostData } from "../../reddit/dto/redditResponse.js";
+import type { GfyResponse } from "../../reddit/dto/gifycatResponse.js";
+import type ItemResponse from "../../dto/itemResponse.js";
 
 export default class GfycatHost extends HostBase {
   public static domains = [/gfycat\.com/i];

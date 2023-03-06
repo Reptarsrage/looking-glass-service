@@ -1,8 +1,9 @@
 import type { AxiosInstance } from "axios";
 import type { FastifyBaseLogger, FastifyRequest } from "fastify";
 
-import type { PostData } from "./redditResponse.js";
 import type ItemResponse from "../../dto/itemResponse.js";
+
+import type { PostData } from "./redditResponse.js";
 
 export type ResolveFunc = (post: PostData) => Promise<ItemResponse | null>;
 

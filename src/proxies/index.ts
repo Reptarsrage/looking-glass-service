@@ -1,9 +1,10 @@
-import type { AxiosProxyConfig, AxiosRequestConfig } from "axios";
-import axios from "axios";
-import invariant from "tiny-invariant";
-import type { Readable } from "node:stream";
 import { setMaxListeners } from "node:events";
+import type { Readable } from "node:stream";
+
+import invariant from "tiny-invariant";
+import axios from "axios";
 import type { FastifyReply } from "fastify";
+import type { AxiosProxyConfig, AxiosRequestConfig } from "axios";
 
 import hidemyname from "./hidemyname.js";
 import proxyscape from "./proxyscape.js";
@@ -11,7 +12,6 @@ import sslproxies from "./sslproxies.js";
 import spysone from "./spysone.js";
 import freeproxylists from "./freeproxylists.js";
 import { getRandomUserAgent } from "./userAgents.js";
-import { OutgoingHttpHeaders } from "node:http";
 
 const BATCH_SIZE = 20;
 

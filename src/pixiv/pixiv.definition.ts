@@ -1,5 +1,6 @@
 import AuthType from "../dto/authType.js";
-import Module from "../dto/moduleResponse.js";
+import type Module from "../dto/moduleResponse.js";
+
 import challenge from "./pixiv.verifier.js";
 
 const oAuthParams = new URLSearchParams([

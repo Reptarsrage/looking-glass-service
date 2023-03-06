@@ -1,18 +1,23 @@
-import type { FastifyInstance, FastifyRequest } from "fastify";
-import { FastifyReply } from "fastify";
 import { S } from "fluent-json-schema";
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-import ModuleControllerBase from "./base/base.controller.js";
-import ModuleResponse, { ModuleResponseSchema } from "./dto/moduleResponse.js";
-import PageResponse, { PageResponseSchema } from "./dto/pageResponse.js";
-import AuthorizeRequest, { AuthorizeRequestSchema } from "./dto/authorizeRequest.js";
-import LoginRequest, { LoginRequestSchema } from "./dto/loginRequest.js";
-import AuthResponse, { AuthResponseSchema } from "./dto/authResponse.js";
-import FilterResponse, { FilterResponseSchema } from "./dto/filterResponse.js";
-import PageRequest, { PageRequestSchema } from "./dto/pageRequest.js";
-
+import { ModuleResponseSchema } from "./dto/moduleResponse.js";
+import { PageResponseSchema } from "./dto/pageResponse.js";
+import { AuthorizeRequestSchema } from "./dto/authorizeRequest.js";
+import { LoginRequestSchema } from "./dto/loginRequest.js";
+import { AuthResponseSchema } from "./dto/authResponse.js";
+import { FilterResponseSchema } from "./dto/filterResponse.js";
+import { PageRequestSchema } from "./dto/pageRequest.js";
 import RedditController from "./reddit/reddit.controller.js";
 import PixivController from "./pixiv/pixiv.controller.js";
+import type ModuleControllerBase from "./base/base.controller.js";
+import type ModuleResponse from "./dto/moduleResponse.js";
+import type PageResponse from "./dto/pageResponse.js";
+import type AuthorizeRequest from "./dto/authorizeRequest.js";
+import type LoginRequest from "./dto/loginRequest.js";
+import type AuthResponse from "./dto/authResponse.js";
+import type FilterResponse from "./dto/filterResponse.js";
+import type PageRequest from "./dto/pageRequest.js";
 
 // Import any additional controllers here
 

@@ -1,11 +1,12 @@
+import ModuleControllerBase from "../base/base.controller.js";
+import { truthy } from "../utils.js";
 import type PageResponse from "../dto/pageResponse.js";
 import type AuthResponse from "../dto/authResponse.js";
 import type FilterResponse from "../dto/filterResponse.js";
-import ModuleControllerBase from "../base/base.controller.js";
-import type { GetPageParams, GetAuthorizeParams, GetRefreshParams, GetFiltersParams } from "../base/base.controller.js";
-import definition from "./reddit.definition.js";
+import type { GetAuthorizeParams, GetFiltersParams, GetPageParams, GetRefreshParams } from "../base/base.controller.js";
+
 import RedditService from "./reddit.service.js";
-import { truthy } from "../utils.js";
+import definition from "./reddit.definition.js";
 
 export default class RedditController extends ModuleControllerBase {
   public static definition = definition;

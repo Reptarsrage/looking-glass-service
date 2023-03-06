@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import type { FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 import type { AxiosRequestHeaders } from "axios";
 
-import PageResponse from "../dto/pageResponse.js";
-import AuthResponse from "../dto/authResponse.js";
-import FilterResponse from "../dto/filterResponse.js";
-import LoginRequest from "../dto/loginRequest.js";
-import PageRequest from "../dto/pageRequest.js";
-import AuthorizeRequest from "../dto/authorizeRequest.js";
-import ModuleResponse from "../dto/moduleResponse.js";
-import stream from "./stream.js";
+import type PageResponse from "../dto/pageResponse.js";
+import type AuthResponse from "../dto/authResponse.js";
+import type FilterResponse from "../dto/filterResponse.js";
+import type LoginRequest from "../dto/loginRequest.js";
+import type PageRequest from "../dto/pageRequest.js";
+import type AuthorizeRequest from "../dto/authorizeRequest.js";
+import type ModuleResponse from "../dto/moduleResponse.js";
 import type { Config } from "../config.js";
+
+import stream from "./stream.js";
 
 class NotImplementedException extends Error {
   name = "NotImplementedError";

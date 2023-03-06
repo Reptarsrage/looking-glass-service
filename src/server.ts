@@ -1,6 +1,7 @@
 import "dotenv/config";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
 import fastifyEnv from "@fastify/env";
 import fastifyStatic from "@fastify/static";
 import fastifyCors from "@fastify/cors";

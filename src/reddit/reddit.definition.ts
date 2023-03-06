@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
 
 import AuthType from "../dto/authType.js";
-import Sort from "../dto/sortResponse.js";
-import Module from "../dto/moduleResponse.js";
+import type Sort from "../dto/sortResponse.js";
+import type Module from "../dto/moduleResponse.js";
 
 const oAuthParams = new URLSearchParams();
 oAuthParams.set("client_id", process.env.REDDIT_CLIENT_ID ?? "");

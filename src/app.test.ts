@@ -1,8 +1,9 @@
 import tap from "tap";
 import { S } from "fluent-json-schema";
 import Ajv from "ajv";
-import { build } from "./app.js";
+
 import { ModuleResponseSchema } from "./dto/moduleResponse.js";
+import { build } from "./app.js";
 
 tap.test("GET `/` route", (t) => {
   t.plan(4);

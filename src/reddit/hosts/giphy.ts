@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 
+import { HostBase } from "../../reddit/dto/redditHost.js";
 import type { GiphyResponse } from "../../reddit/dto/giphyResponse.js";
 import type { PostData } from "../../reddit/dto/redditResponse.js";
 import type ItemResponse from "../../dto/itemResponse.js";
-import { HostBase } from "../../reddit/dto/redditHost.js";
 
 export default class GiphyHost extends HostBase {
   public static domains: RegExp[] = [/giphy\.com/i];

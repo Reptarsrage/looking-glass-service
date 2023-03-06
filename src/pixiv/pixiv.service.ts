@@ -1,17 +1,18 @@
 // see: https://github.com/Pixeval/Pixeval/
-import { AxiosRequestConfig } from "axios";
 import * as cheerio from "cheerio";
+import type { AxiosRequestConfig } from "axios";
 
-import PageResponse from "../dto/pageResponse.js";
-import AuthResponse from "../dto/authResponse.js";
-import FilterResponse from "../dto/filterResponse.js";
-import ItemResponse from "../dto/itemResponse.js";
-import MediaResponse from "../dto/mediaResponse.js";
-import httpService from "./pixiv.http.js";
-import { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse.js";
-import challenge from "./pixiv.verifier.js";
-import type { PixivAuthResponse } from "./dto/pixivAuthResponse.js";
 import { clampImageDimensions, nonNullable, truthy } from "../utils.js";
+import type PageResponse from "../dto/pageResponse.js";
+import type AuthResponse from "../dto/authResponse.js";
+import type FilterResponse from "../dto/filterResponse.js";
+import type ItemResponse from "../dto/itemResponse.js";
+import type MediaResponse from "../dto/mediaResponse.js";
+
+import challenge from "./pixiv.verifier.js";
+import httpService from "./pixiv.http.js";
+import type { PixivIllust, PixivIllustDetail, PixivIllustSearch, PixivTagsResponse } from "./dto/illustSearchResponse.js";
+import type { PixivAuthResponse } from "./dto/pixivAuthResponse.js";
 
 export async function refresh(refreshToken: string): Promise<AuthResponse> {
   const authTokenUrl = "https://oauth.secure.pixiv.net/auth/token";

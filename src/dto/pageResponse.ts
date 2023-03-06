@@ -1,6 +1,7 @@
 import { S } from "fluent-json-schema";
 
-import ItemResponse, { ItemResponseSchema } from "./itemResponse.js";
+import { ItemResponseSchema } from "./itemResponse.js";
+import type ItemResponse from "./itemResponse.js";
 
 export default interface PageResponse {
   items: ItemResponse[];
