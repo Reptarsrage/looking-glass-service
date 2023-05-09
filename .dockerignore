@@ -85,3 +85,9 @@ tap-snapshots
 
 # vscode
 .vscode
+
+# husky
+.husky
+
+# dist
+dist

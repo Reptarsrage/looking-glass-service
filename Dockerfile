@@ -1,22 +1,22 @@
 # set up
-FROM node:alpine as env
-ENV HOST 0.0.0.0
-EXPOSE 3001
+FROM node:19.7-bullseye-slim AS base
+WORKDIR /usr/src/app
 
 # restore
-FROM env as restore
-WORKDIR /src
+FROM base as restore
 COPY package*.json ./
-RUN npm install
+RUN --mount=type=cache,target=/usr/src/app/.npm \
+  npm set cache /usr/src/app/.npm && \
+  npm install
 
 # build
 FROM restore as build
-WORKDIR /src
 COPY . .
 RUN npm run build
-RUN [ -f prod.env ] && mv prod.env /src/dist/.env
+RUN [ -f prod.env ] && mv prod.env /usr/src/app/dist/.env
 
 # run
 FROM build as final
-WORKDIR /src/dist
-CMD [ "node", "server.js" ]
+ENV NODE_ENV production
+EXPOSE 3001
+CMD [ "node", "dist/server.js" ]

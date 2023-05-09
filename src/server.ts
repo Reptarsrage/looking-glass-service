@@ -12,7 +12,7 @@ import { build } from "./app.js";
 
 const server = build({
   logger: {
-    level: process.env.LOG_LEVEL ?? "debug",
+    level: process.env["LOG_LEVEL"] ?? "debug",
     transport: {
       target: "pino-pretty",
     },
@@ -34,7 +34,7 @@ const __dirname = path.dirname(__filename);
 server.register(fastifyStatic, { root: path.resolve(__dirname, "..", "public") });
 
 // Handle errors
-server.setErrorHandler(function (error, request, reply) {
+server.setErrorHandler(function (error, _request, reply) {
   if (isAxiosError(error) && error.response) {
     this.log.warn({ data: error.response.data }, `Request failed with status code ${error.response.status}`);
     reply.status(error.response.status).send();
@@ -45,8 +45,8 @@ server.setErrorHandler(function (error, request, reply) {
   reply.status(500).send();
 });
 
-const port = parseInt(process.env.PORT ?? "3001", 10);
-const host = process.env.HOST ?? "127.0.0.1";
+const port = parseInt(process.env["PORT"] ?? "3001", 10);
+const host = process.env["HOST"] ?? "127.0.0.1";
 server.listen({ host, port }, (err, address) => {
   if (err) {
     console.error(err);
